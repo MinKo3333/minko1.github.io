@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .buttons{
+      border: 1px solid black;
+      border-radius: 10%;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      background-color: gainsboro;
+      margin: 4px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <input id="input" type="text">
+  <hr>
+  <div style="display: flex; flex-flow: row wrap; width: 500px;">
+  <div class="buttons" >q</div>
+  <div class="buttons" onclick="press(this)">w</div>
+  <div class="buttons" onclick="press(this)">e</div>
+  <div class="buttons" onclick="press(this)">r</div>
+  <div class="buttons" onclick="press(this)">t</div>
+  <div class="buttons" onclick="press(this)">y</div>
+  <div class="buttons" onclick="press(this)">u</div>
+  <div class="buttons" onclick="press(this)">i</div>
+  <div class="buttons" onclick="press(this)">o</div>
+  <div class="buttons" onclick="press(this)">p</div>
+  <div class="buttons" onclick="press(this)">å</div>
+  <div class="buttons" onclick="press(this)">^</div>
+  <br>
+  <div style="width: 25px; height: 30px;"></div><div class="buttons" onclick="press(this)">a</div>
+  <div class="buttons" onclick="press(this)">s</div>
+  <div class="buttons" onclick="press(this)">d</div>
+  <div class="buttons" onclick="press(this)">f</div>
+  <div class="buttons" onclick="press(this)">g</div>
+  <div class="buttons" onclick="press(this)">h</div>
+  <div class="buttons" onclick="press(this)">j</div>
+  <div class="buttons" onclick="press(this)">k</div>
+  <div class="buttons" onclick="press(this)">l</div>
+  <div class="buttons" onclick="press(this)">ø</div>
+  <div class="buttons" onclick="press(this)">æ</div>
+  
+  </div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+        const input = document.getElementById("input")
+        const container = document.querySelector("div[style]")
+
+        container.addEventListener("click", (event) => {
+            if (event.target.classList.contains("buttons")) {
+                input.value += event.target.innerText
+            }
+        })
+        
+  })
+
+
+</script>
+</body>
+</html>
+
+//Lag et tekstfelt og et "tastatur" av forskjellige knapper
+ du kan trykke på. Oppdater tekstfeltet til å vise frem hvilke
+  knapper du har trykt på ved å bruke variabler, this og funksjon 
+  med parameter
+
+1 tekstfelt(input)
+2 tastatur 3 a b c(div)

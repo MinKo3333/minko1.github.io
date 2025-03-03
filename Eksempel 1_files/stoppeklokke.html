@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stoppeklokke</title>
+  <style>
+    .show{width: 200px; height: 20px; display: flex;}
+  </style>
+</head>
+<body>
+
+  <div id="showTime" class="show" style="border: 1px gray solid;"></div>
+  
+  <button id="startButton" onclick="time()">start</button>
+  <button id="lapButton" onclick="laps()">lap time & start from 0</button>
+  <button id="stopButton" onclick="stop()">stop</button>
+  <br>
+  <p>laps</p>
+  <div id="showlaps" class="show" style="border: 1px gray solid;"></div>
+  <br>
+  <hr>
+  <div id="history">History<br></div>
+
+<script>
+let showTime = document.getElementById('showTime')
+let showlaps = document.getElementById('showlaps')
+let history = document.getElementById('history')
+let stopwatch;
+let running = false
+function time(){
+   
+    if(showTime){
+    
+    showlaps.innerHTML = null
+    showTime.innerHTML = null
+    if(!running){
+    running = true
+    let t = 0
+    stopwatch=setInterval(()=>{
+      t= t+1
+        showTime.innerHTML = `${t/100}`
+       
+        },10)  }}
+    else if(showTime.innerHTML){  }
+   
+}
+
+function laps(){
+
+showlaps.style.height = 'fit-content'
+showlaps.innerHTML += `${showTime.innerHTML}<br>`
+  }
+
+
+
+
+
+function stop(){
+  endTime = showTime.innerHTML
+  clearInterval(stopwatch) 
+    history.innerHTML += `${showTime.innerHTML}<br>`
+    running = false
+      
+ }
+
+</script>
+</body>
+</html>

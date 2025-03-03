@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+.valgtediv{
+  border: 3px solid red;
+  width: 100px;
+  height: 100px;
+}
+.tomtdiv{
+  border: 1px gray solid;
+  width: 100px;
+  height: 100px;
+}
+.fargediv{
+  border: 1px gray solid;
+  width: 100px;
+  height: 100px;
+}
+
+  </style>
+</head>
+<body>
+<div style="display: flex; flex-flow: column nowrap;">
+  <div style="display: flex; flex-direction: row;">
+  <div class="fargediv" id="blue" style="background-color: blue;"
+  onclick="clicked('blue')">blue</div>
+  <div class="fargediv" id="pink" style="background-color: pink;"
+  onclick="clicked('pink')">pink</div>
+  <div class="fargediv" id="yellow" style="background-color: yellow;"
+  onclick="clicked('yellow')">yellow</div>
+  <button id="button" onclick="colorbutton()" style="width: 100px;height: 100px;">endre farge</button>
+  </div>
+  <hr>
+  <div style="display: flex; flex-flow: wrap row;">
+  <div id="tomtdiv1" class="tomtdiv"></div>
+  <div id="tomtdiv2"class="tomtdiv"></div>
+</div>
+</div>
+
+<script>
+
+let selectedColor = ''
+let clickvalue = ''
+let tomtdivs  = document.getElementsByClassName('tomtdiv')
+
+
+function clicked(farge){
+  
+  let newfarge = document.getElementById(farge)
+
+  if(selectedColor) {
+      let previous = document.getElementById(selectedColor)
+      previous.classList.remove('valgtediv')
+      previous.classList.add('fargediv')
+     
+  }
+  
+  newfarge.classList.remove('fargediv')
+  newfarge.classList.add('valgtediv')
+  selectedColor = farge;
+}
+
+function colorbutton(){document.body.style.backgroundColor = selectedColor}
+
+
+
+
+Array.from(tomtdivs).forEach((farge) => {
+farge.addEventListener('click', function(){
+  if(selectedColor){
+    farge.style.backgroundColor = selectedColor
+  }
+})
+  
+}) 
+
+</script>  
+
+</body>
+</html>  

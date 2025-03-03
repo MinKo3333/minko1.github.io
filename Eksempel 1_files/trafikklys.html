@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .lights{ border-radius: 50%; 
+             width: 100px; 
+             height: 100px;  
+             border: 10px solid rgb(43, 44, 46);
+            }
+
+    .lightoff{background-color: rgb(187, 187, 187);}
+    .red { background-color: red; }
+    .green { background-color: greenyellow; }
+    .yellow { background-color:yellow; }
+  </style>
+</head>
+<body>
+  <div style="background-color: rgb(43, 44, 46); width: fit-content;">
+    <div class="lights lightoff" id="red" ></div>
+    <div class="lights lightoff" id="yellow"></div>
+    <div class="lights lightoff" id="green" ></div>
+    <button id="redbutton" onclick="clicked('red')">red</button>
+    <button id="RaYButton" onclick="clicked('yellow')">red and yellow</button>
+    <button id="greenbutton" onclick="clicked('green')">green</button>
+
+  </div>
+  
+  <script>
+    
+function clicked(colorname){
+  let lights = document.querySelectorAll('.lights')
+  
+  let yellow = document.getElementById('yellow')
+  let red = document.getElementById('red')
+  let green = document.getElementById('green')
+
+  lights.forEach(light => { 
+    console.log(light)
+    light.classList.add('lightoff')
+  })
+
+ 
+  if (colorname === 'red') {
+    yellow.classList.remove('yellow')
+    red.classList.add('red')
+    green.classList.remove('green')
+}
+  else if (colorname === 'green') {
+    red.classList.remove('red')
+    yellow.classList.remove('yellow')
+    green.classList.add('green')
+  }
+  
+ else if(colorname === 'yellow'){
+      green.classList.remove('green')
+      red.classList.add('red')
+      yellow.classList.add('yellow')  }
+  
+  
+
+
+  </script>
+</body>
+</html>} 

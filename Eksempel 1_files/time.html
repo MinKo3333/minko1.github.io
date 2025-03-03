@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>현재 시각</title>
+  <style>
+    #time{color:blue; font-size: larger; font-weight: bold;}
+
+  </style>
+</head>
+<body style="display: flex; align-items: center; justify-content: center; column-gap: 5px; height: 100vh; margin: 0">
+ 
+  <div>
+    <p style="font-size: smaller;">현재 시각  </p>
+  </div>
+  <div>
+    <p id="time"></p>
+  </div>
+
+<script>
+
+function time(){
+ let date = new Date()
+ let local = date.toLocaleString('ko-KR', {timeZone: 'Asia/Seoul'})
+ let ozeon = local.split(' ')[3]
+ let timeOnly = local.split(' ')[4]
+
+document.getElementById('time').innerHTML = '  '+ ozeon + ' ' + timeOnly
+
+}
+time()
+setInterval(time, 1000)
+
+</script>
+</body>
+</html>

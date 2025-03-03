@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+.check{
+  margin-right: 8px;
+  color: gray;
+  cursor: pointer;
+}
+  </style>
+</head>
+<body>
+  <h1 style="font-weight: bold;">할 일 목록</h1>
+  <ul id="list" style="list-style: none;">
+    <li><span class="check" >✔</span>할 일 1</li>
+    <li><span class="check" >✔</span>할 일 2</li>
+    <li><span class="check" >✔</span>할 일 3</li>
+    <li><span class="check" >✔</span>할 일 4</li>
+    <li><span class="check" >✔</span>할 일 5</li>
+  </ul>
+  <script>
+    var checks = document.querySelectorAll('.check');
+
+for(let i=0; i<checks.length; i++){
+  
+  checks[i].addEventListener('click', function() {
+    this.parentNode.style.textDecoration = 'line-through';
+    this.parentNode.style.color = 'lightgray'
+  })
+}
+  </script>
+</body>
+</html>

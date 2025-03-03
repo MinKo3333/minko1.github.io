@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p id="vari"></p>
+
+  <button onclick="plus('to')">2</button>
+  <button onclick="plus('tre')">3</button>
+  <button onclick="plus('ni')">9</button>
+
+  <script>
+    let number=0
+    let numberclick=0
+
+
+    function plus(x){
+
+     
+
+      if(x==='to'){
+        numberclick+1
+        //let vari = document.getElementById('vari').innerHTML
+        //let navn=parseInt(vari) + 2
+             
+        //document.getElementById('vari').innerHTML=navn
+        number = number+2
+        document.getElementById('vari').innerHTML = number
+
+
+      }
+      if(x==='tre'){
+        numberclick+1
+        number = number+3
+        document.getElementById('vari').innerHTML = number
+      }
+      if(x==='ni'){
+        numberclick+1
+        number = number+9
+        document.getElementById('vari').innerHTML = number
+
+
+      }
+       if(number===55){
+        document.getElementById('vari').innerHTML= 'Vinner-tallet!'
+      }
+    }
+
+  </script>
+  
+</body>
+</html>

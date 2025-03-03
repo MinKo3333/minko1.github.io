@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>krokodille</title>
+  <style>
+    #svar{
+      width: 100px;
+      height: 20px;
+      border: 1px solid gainsboro;
+    }
+  </style>
+</head>
+<body style="display: flex; flex-flow: column; align-items: center;">
+  <div style="display: flex; flex-direction: row; align-items: baseline; gap: 10px;">
+  <span style="font-size: 32px; font-weight: bolder;">Poeng : </span><h1 id="poeng">0</h1>
+  </div>
+  <img src="krokodille.avif" style="width: 300px; height: auto;">
+  <div style="display: flex; flex-direction: row; align-items: baseline; gap: 10px;">
+  <div id="nummer1"></div> <input id="svar"><div id="nummer2"></div>
+  </div>
+  <div>
+  <button id="submit" onclick="sjekkSvar()">submit</button><button id="reset">reset</button>
+  </div>
+  <div id="alarm" style="font-size: 20px; font-weight: bold;"></div>
+
+<script>
+let nummer1value;
+let nummer2value;
+let nummer1= document.getElementById('nummer1')
+let nummer2= document.getElementById('nummer2')
+let reset = document.getElementById('reset')
+let alarm = document.getElementById('alarm')
+
+nummergenerate()
+
+
+reset.addEventListener('click', nummergenerate)
+
+function nummergenerate(){
+  
+  nummer1.innerHTML = ''
+  nummer2.innerHTML = ''
+  document.querySelector('#svar').value = ''
+
+  do {
+  nummer1value = Math.ceil(Math.random()*10)
+  nummer2value = Math.ceil(Math.random()*10)
+  }while (nummer1value === nummer2value)
+
+
+  nummer1.innerText = nummer1value 
+  nummer2.innerText = nummer2value 
+
+return;
+}
+
+function sjekkSvar(){
+  let svar = document.querySelector('#svar')
+  let poeng = document.getElementById('poeng').innerHTML
+  let poengnummer = parseInt(document.getElementById('poeng').innerText)
+  
+  if((nummer1value < nummer2value) && (svar.value === '<' )){
+    alarm.innerHTML = 'Congratulation'
+    if(!poeng){
+      document.getElementById('poeng').innerHTML = 1
+    }
+    else{
+    document.getElementById('poeng').innerHTML = poengnummer + 1
+    nummergenerate()
+    return
+    }
+  }
+  else{
+    alarm.innerHTML = 'Try again'
+
+    if(!poeng || !svar.value || (svar.value !=='<' && svar.value !=='>') ){
+      document.getElementById('poeng').innerHTML = 0
+    }
+    else{
+    document.getElementById('poeng').innerHTML = poengnummer - 1
+   
+    }
+
+  if((nummer1value > nummer2value) && (svar.value === '>' )){
+    alarm.innerHTML = 'Congratulation'
+    if(!poeng){
+      document.getElementById('poeng').innerHTML = 0
+    }
+    else{
+    document.getElementById('poeng').innerHTML = poengnummer + 1
+   
+    return
+    }
+  }
+  else{
+    alarm.innerHTML = 'Try again'
+  }
+
+  if(!svar.value || (svar.value !=='<' && svar.value !=='>'))
+  {
+    alarm.innerHTML = 'Invalid answer'
+  }
+
+  svar.value = '' 
+  
+  return;
+}
+}
+  
+
+</script>
+</body>
+</html>

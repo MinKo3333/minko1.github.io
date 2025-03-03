@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+<style>
+ .first{
+  background-color:aquamarine;
+  width: 200px; height: 300px;
+ }
+
+ .second{
+  background-color:rgb(253, 101, 233);
+  width: 100px; height: 500px;
+ }
+
+
+</style>
+
+
+</head>
+<body>
+  <div id="catperson">
+    <p><strong>Cat person</strong></p>
+    <button onclick="tekstfargestørrelse(1)">1</button>
+    <button onclick="tekstfargestørrelse(2)">2</button>
+  </div>
+
+  <script>
+    function tekstfargestørrelse(x){if(x===1){
+
+      document.getElementById('catperson').classList=''
+      document.getElementById('catperson').innerHTML = 
+      `<p><strong>Dog person</strong></p>
+  <button onclick="tekstfargestørrelse(1)">1</button>
+  <button onclick="tekstfargestørrelse(2)">2</button>`
+
+      document.getElementById('catperson').classList= 'first'   }
+      else {
+        document.getElementById('catperson').classList=''
+        document.getElementById('catperson').innerHTML = 
+        `<p><strong>Bird person</strong></p>
+  <button onclick="tekstfargestørrelse(1)">1</button>
+  <button onclick="tekstfargestørrelse(2)">2</button>`
+        document.getElementById('catperson').classList= 'second'   
+
+      }
+
+    }
+    
+
+
+  </script>
+
+
+
+</body>
+</html>

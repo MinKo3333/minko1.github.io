@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #time{border: 1px solid rgb(179, 179, 179) ; width: fit-content; padding: 15px;    }
+  </style>
+</head>
+<body>
+  <div style="width: 100%; height:20cap ; display:flex; justify-content: center; align-items: center;">
+    <div id="time" onclick="newWindow('time.html', 400, 200)">
+      현재 시간 보기
+    </div>
+  </div>
+
+<script>
+  function newWindow(doc, w, h){
+
+  let top = (screen.availHeight - h) / 2
+  let left = (screen.availWidth-w) / 2
+  let opt = 'left=' + left + ',top='+ top +',width='+ w+',height=' + h
+
+  window.open(doc,'',opt)
+}
+
+
+
+
+
+</script>
+</body>
+</html>

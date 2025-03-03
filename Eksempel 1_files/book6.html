@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+ 
+  <title>실시간</title>
+</head>
+<body>
+<p>현재 시각 <span id="current" class="display"></span></p>
+  
+  <script>
+    setInterval(displayNow,1000)
+
+    function displayNow(){
+     let date = new Date();
+     
+
+      document.querySelector('#current').innerHTML =  date.toLocaleTimeString('ko-KR')
+    }
+    displayNow()
+
+  </script>
+</body>
+</html>

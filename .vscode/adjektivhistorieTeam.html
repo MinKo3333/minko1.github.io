@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adjektiv historie</title>
+  <style>
+  body {
+    font-family: Arial;
+  }
+  .container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    max-width: 400px;
+    margin: auto;
+  }
+  .buttonContainer {
+    text-align: center;
+  }
+  .story {
+    background-color: lightgrey;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px grey;
+    max-width: 400;
+    margin: auto;
+    height: 100px;    
+    text-align: center;
+  }
+  .story p {
+    font-size: medium;
+  }
+  button {
+    background-color: aliceblue;
+    color: lightskyblue;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: medium;
+    margin: auto;
+  }
+  button:hover {
+    background-color: mediumblue;
+  }
+</style>
+</head>
+
+<body>
+ <div id="app"></div>
+
+  <script>
+
+    let selectedwords = {
+      color : "___",
+      substantiv : "___",
+      verb : "___",
+      locations : "___"
+    }
+
+    function updateHTML(){
+    let bodycontent = ` <div class="container">
+    <div class="buttonContainer">
+      <button class= "color" onclick="choose(this)">green</button>
+      <button class= "color" onclick="choose(this)">red</button>
+    </div>
+    <div class="buttonContainer">
+      <button class= "substantiv"onclick="choose(this)">cat</button>
+      <button class= "substantiv"onclick="choose(this)">man</button>    
+    </div>
+    <div class="buttonContainer">
+      <button class= "verb" onclick="choose(this)">stand</button>
+      <button class= "verb" onclick="choose(this)">jumped</button>
+    </div>
+    <div class="buttonContainer">
+      <button  class= "locations" onclick="choose(this)">poll</button>
+      <button  class= "locations"onclick="choose(this)">wall</button>
+    </div>
+  </div>
+  
+  <div class="story" id="story">
+    <p>A <span class="color">${selectedwords.color}</span>
+      <span class="substantiv">${selectedwords.substantiv}</span> 
+      <span class="verb">${selectedwords.verb}</span>
+      on the <span class="locations">${selectedwords.locations}</span>.</div>`
+
+      document.getElementById('app').innerHTML = bodycontent;
+}
+    
+  function choose(word){
+
+      
+      let WordValue = word.innerHTML
+      let WordClassName = word.className
+
+
+      selectedwords[WordClassName] = WordValue
+      updateHTML()
+    }
+
+    updateHTML()
+ 
+  </script>
+</body>
+</html>
+

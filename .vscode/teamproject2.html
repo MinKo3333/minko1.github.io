@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Escape Room</title>
     <style>
       body{
         margin: 0;
@@ -51,9 +51,9 @@ Up, up it goes,
 And yet never grows?</blockquote>
       <input id="riddle1" type="text" maxlength="8">
       <div class="buttonbox">
-        <button onclick="back()" >back</button>
-        <button onclick="action()" >action</button>
-        <button onclick="go()" >go</button>
+        <button onclick="back()" >Back</button>
+        <button onclick="action()" >Answer Riddle</button>
+        <button onclick="go()" >Go Further</button>
     </div>
 </div>
     </div>
@@ -65,9 +65,9 @@ Toothless bites,
 Mouthless mutters.</blockquote>
       <input id="riddle2" type="text" maxlength="8">
       <div class="buttonbox">
-        <button onclick="back()" >back</button>
-        <button onclick="action()" >action</button>
-        <button onclick="go()" >go</button>
+        <button onclick="back()" >Back</button>
+        <button onclick="action()" >Answer Riddle</button>
+        <button onclick="go()" >Go Further</button>
        </div>
       </div>
     </div>
@@ -88,9 +88,9 @@ Mouthless mutters.</blockquote>
         <div>
             <input id="riddle3" type="text" maxlength="8">
             <div class="buttonbox">
-              <button onclick="back()" >back</button>
-              <button onclick="action()" >action</button>
-              <button onclick="go()" >go</button>
+              <button onclick="back()" >Back</button>
+              <button onclick="action()" >Answer Riddle</button>
+              <button onclick="go()" >Leave The Mountain</button>
           </div>
       </div>
             
@@ -165,7 +165,7 @@ Mouthless mutters.</blockquote>
           if (room === 1) {
             let riddle1Element1 = document.getElementById('riddle1')
             if(answer1 === riddle1Element1.value){
-              alert('Du har vunnet!')
+              alert('Riktig svar! Du kan gå videre!')
               solvedRiddle1 = true
             }
             else{
@@ -175,7 +175,7 @@ Mouthless mutters.</blockquote>
             let riddle1Element2 = document.getElementById('riddle2')
             if(answer2 === riddle1Element2.value){
            
-              alert('Du har vunnet!')
+              alert('Riktig svar! Du kan gå videre!')
               solvedRiddle2 = true
             }
             else{
@@ -185,7 +185,7 @@ Mouthless mutters.</blockquote>
             let riddle1Element3 = document.getElementById('riddle3')
             if(answer3 === riddle1Element3.value) {
            
-              alert('Du har vunnet!')
+              alert('Riktig svar! Du har greid å rømme fra hulen!')
               solvedRiddle3 = true
             }
             else{
@@ -231,8 +231,315 @@ Mouthless mutters.</blockquote>
             }
                     
         }
+        
+        main = document.getElementById('app')
+        reaction = document.getElementById('respons')
 
-  
+    function entranceRoom() {
+      return /*HTML*/`
+      Du er fanget i en labyrint. <br>
+        Du er i et tomt rom. Du kom fra sør, men et steinras har blokkert veien. <br>
+        Mot nord ser du en vegg. Noen har risset "∈=1" inn i veggen<br>
+        Mot vest ser du en dør. <br>
+        Mot øst ser du en dør. <br>
+        <!-- $ roomA3()} -->
+        <div id="A3">
+            <div>
+                <button onclick="blocked()">Gå Nord</button>
+            </div>
+            <div>
+                <button onclick="roomA2()">Gå Vest</button>
+                <button onclick="failedAction()">Handling</button>
+                <button onclick="roomA4('nord')">Gå Øst</button>
+            </div>
+            <div>
+                <button onclick="blocked()">Gå Sør</button>
+            </div>
+        </div>
+        `;
+    }
+    //action kan byttes ut med "Se deg rundt"
+    //function action() {
+    //    reaction.innerHTML = "Du plukker opp gjenstanden."
+    //}
+    function failedAction() {
+        reaction.innerHTML = 'Det er ingen ting du kan gjøre. Ingenting skjer.'
+    }
+    
+    function blocked() {
+            reaction.innerHTML = 'Veien er blokkert.'
+        }
+
+    function exitRoom() {
+        reaction.innerHTML = ""
+        main.innerHTML =  /*HTML*/ `
+        Foran deg er det 6 døråpninger. De er markert med forskjellige symboler. <br>
+        Over døråpningene er det hugget inn i veggen: <br>
+        "Finn symbolene og løs gåten for å finne døren som fører til frihet!" <br> (⊖ * □) / ∆ <br>
+        Håper du har skrevet ned symbolene du fant... <br>
+
+        <button onclick="door(1)">Dør ∪</button>
+        <button onclick="door(2)">Dør ⊖</button>
+        <button onclick="door(3)">Dør ∆</button>
+        <button onclick="door(4)">Dør ⊕</button>
+        <button onclick="door(5)">Dør ∼</button>
+        <button onclick="door(6)">Dør □</button> <br>
+
+        <button onclick="roomB2()">Tilbake til labyrinten</button>
+        `; 
+    }
+
+    function door(i) {
+        if(i==1) {
+            reaction.innerHTML = `Du kommer bare noen meter inn i gangen før bakken plutselig forsvinner
+             under deg. Mens du faller ned i det ukjente ser du bare mørke...`
+        } else if(i==2) {
+            reaction.innerHTML = `En steinblokk smeller ned i bakken bak deg og blokkerer veien tilbake. 
+            Spisse spyd begynner å synke ned fra taket...`
+        } else if(i==3) {
+            reaction.innerHTML = `Etter noen meter kommer du til en nedoverbakke. Du hører en lyd bak deg.
+            Du snur deg og ser en kjempestein rulle mot deg fra et rom over porten du kom fra...`
+        } else if(i==4) {
+            reaction.innerHTML = ""
+            main.innerHTML = "<h1>GRATULERER! </h1> <h2> Du har rømt fra labyrinten!</h1>"
+        } else if(i==5) {
+            reaction.innerHTML =  "Snakes! Why did it have to be snakes!?"
+        } else if(i==6) {
+            reaction.innerHTML = "Du hører et klikk. Så begynner veggene å sakte komme nærmere..."
+        }
+
+    }
+
+
+    //Underveisrom -- Kan kuttes/stokkes om
+
+    function roomA3() {
+        main.innerHTML = /*HTML*/ `
+        <div id="A3">
+            Du er tilbake der du startet. <br>
+            Dørene er forran og bak deg og fører øst og vest. <br>
+            På den nordlige veggen kan du se "∼=1".
+            <div>
+                <button onclick="blocked()">Gå Nord</button>
+            </div>
+            <div>
+                <button onclick="roomA2()">Gå Vest</button>
+                <button onclick="failedAction()">Handling</button>
+                <button onclick="roomA4('nord')">Gå Øst</button>
+            </div>
+            <div>
+                <button onclick="blocked()">Gå Sør</button>
+            </div>
+        </div>
+        `;
+        reaction.innerHTML = ""
+    }
+    function roomA2() {
+        main.innerHTML = /*HTML*/`
+        Et tomt rom, nesten identisk med det du startet i.<br>
+        De eneste dørene du ser er i retning øst og vest.
+        <div id="A2">
+            <div>
+                <button onclick="blocked()">Gå Nord</button>
+            </div>
+            <div>
+                <button onclick="roomA1()">Gå Vest</button>
+                <button onclick="failedAction()">Handling</button>
+                <button onclick="roomA3()">Gå Øst</button>
+            </div>
+            <div>
+                <button onclick="blocked()">Gå Sør</button>
+            </div>
+        </div>
+        `;
+        reaction.innerHTML = ""
+    }
+    function roomA1() {
+        main.innerHTML = /*HTML*/`
+        Du ser en vegg forran deg. <br>
+        De to utgangene fra dette rommet leder deg nord og øst. <br>
+        På den sørlige veggen ser du risset inn "∆=3".
+        <div id="A1">
+            <div>
+                <button onclick="roomB1()">Gå Nord</button>
+            </div>
+            <div>
+                <button onclick="blocked()">Gå Vest</button>
+                <button onclick="failedAction()">Handling</button>
+                <button onclick="roomA2()">Gå Øst</button>
+            </div>
+            <div>
+                <button onclick="blocked()">Gå Sør</button>
+            </div>
+        </div>
+        `;
+        reaction.innerHTML = ""
+    }
+    function roomB1() {
+        main.innerHTML = /*HTML*/`
+        Et veiskille! <br>
+        Du kommer til et rom med tre utganger. De leder mot nord, øst og sør. <br>
+        Bortsett fra det er rommet ganske kjedelig.
+        <div id="B1">
+            <div>
+                <button onclick="roomC1()">Gå Nord</button>
+            </div>
+            <div>
+                <button onclick="blocked()">Gå Vest</button>
+                <button onclick="failedAction()">Handling</button>
+                <button onclick="roomB2()">Gå Øst</button>
+            </div>
+            <div>
+                <button onclick="roomA1()">Gå Sør</button>
+            </div>
+        </div>
+        `;
+        reaction.innerHTML = ""
+    }
+    function roomC1() {
+        main.innerHTML = /*HTML*/`
+        En blindvei! Nå må du nok snu! <br>
+        Veggen forran deg har enda et symbol med et tilhørende tall: "□=6" <br>
+        Men vent? Hva er det som ligger på bakken? Trykk "Handling" for å plukke opp. <br>
+        Eneste dør er mot sør, så hva ellers kan man gjør...
+        <div id="C1">
+            <div>
+                <button onclick="blocked()">Gå Nord</button>
+            </div>
+            <div>
+                <button onclick="blocked()">Gå Vest</button>
+                <button onclick="action()">Handling</button>
+                <button onclick="blocked()">Gå Øst</button>
+            </div>
+            <div>
+                <button onclick="roomB1()">Gå Sør</button>
+            </div>
+        </div>
+        `;
+        reaction.innerHTML = ""
+    }
+    function roomB2() {
+        main.innerHTML = /*HTML*/`
+        Enda et veiskille! <br>
+        Du kommer til et rom med tre utganger. De leder mot vest, nord og øst. <br>
+        Du kan kjenne en svak bris fra ett av rommene.
+        <div id="B2">
+            <div>
+                <button onclick="exitRoom()">Gå Nord</button>
+            </div>
+            <div>
+                <button onclick="roomB1()">Gå Vest</button>
+                <button onclick="failedAction()">Handling</button>
+                <button onclick="roomB3()">Gå Øst</button>
+            </div>
+            <div>
+                <button onclick="blocked()">Gå Sør</button>
+            </div>
+        </div>
+        `;
+        reaction.innerHTML = ""
+    }
+    function roomB3() {
+        main.innerHTML = /*HTML*/`
+        Her svinger veien igjen. <br>
+        Dørene leder nord og vest.
+        <div id="B3">
+            <div>
+                <button onclick="roomC3()">Gå Nord</button>
+            </div>
+            <div>
+                <button onclick="roomB2()">Gå Vest</button>
+                <button onclick="failedAction()">Handling</button>
+                <button onclick="blocked()">Gå Øst</button>
+            </div>
+            <div>
+                <button onclick="blocked()">Gå Sør</button>
+            </div>
+        </div>
+        `;
+        reaction.innerHTML = ""
+    }
+    function roomC3() {
+        main.innerHTML = /*HTML*/`
+        Fælt så my det svingte her da!<br>
+        Du ser "⊕=4" risset inn i en av veggene <br>
+        Øst og sør er retningene som ikke har solide vegger.
+        <div id="C3">
+            <div>
+                <button onclick="blocked()">Gå Nord</button>
+            </div>
+            <div>
+                <button onclick="blocked()">Gå Vest</button>
+                <button onclick="failedAction()">Handling</button>
+                <button onclick="roomC4()">Gå Øst</button>
+            </div>
+            <div>
+                <button onclick="roomB3()">Gå Sør</button>
+            </div>
+        </div>
+        `;
+        reaction.innerHTML = ""
+    }
+    function roomC4() {
+        main.innerHTML = /*HTML*/`
+        En ny sving.<br>
+        Dørene er der sola går ned og der pingvinene bor.
+        <div id="C4">
+            <div>
+                <button onclick="blocked()">Gå Nord</button>
+            </div>
+            <div>
+                <button onclick="roomC3()">Gå Vest</button>
+                <button onclick="failedAction()">Handling</button>
+                <button onclick="blocked()">Gå Øst</button>
+            </div>
+            <div>
+                <button onclick="roomB4()">Gå Sør</button>
+            </div>
+        </div>
+        `;
+        reaction.innerHTML = ""
+    }
+    function roomB4() {
+        main.innerHTML = /*HTML*/`
+        En tom gang som går rett frem i nordlig/sydlig retning.<br>
+        Hadde det ikke vært et mystisk symbol på veggen ("⊖=2"), så hadde dette rommet føltes veldig meningsløst ut.
+        <div id="B4">
+            <div>
+                <button onclick="roomC4()">Gå Nord</button>
+            </div>
+            <div>
+                <button onclick="blocked()">Gå Vest</button>
+                <button onclick="failedAction()">Handling</button>
+                <button onclick="blocked()">Gå Øst</button>
+            </div>
+            <div>
+                <button onclick="roomA4('øst')">Gå Sør</button>
+            </div>
+        </div>
+        `;
+        reaction.innerHTML = ""
+    }
+    function roomA4(input) {
+        main.innerHTML = /*HTML*/`
+        Veien svinger mot ${input}.<br>
+        Men du kan selvfølgelig også gå tilbake dit du kom fra hvis du vil.
+        <div id="A4">
+            <div>
+                <button onclick="roomB4()">Gå Nord</button>
+            </div>
+            <div>
+                <button onclick="roomA3()">Gå Vest</button>
+                <button onclick="failedAction()">Handling</button>
+                <button onclick="blocked()">Gå Øst</button>
+            </div>
+            <div>
+                <button onclick="blocked()">Gå Sør</button>
+            </div>
+        </div>
+        `;
+        reaction.innerHTML = ""
+    }
     </script>
 
 </body>

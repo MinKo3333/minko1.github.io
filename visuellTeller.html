@@ -7,27 +7,29 @@
 </head>
 <body>
   <button onclick="bigger()">△</button>
-  <p id="number">1</p>
+  <p id="number">0</p>
   <button onclick="smaller()">▽</button>
   <script>
    
  
-   let numberElement = document.getElementById('number')
-
+   
    let result = document.getElementById('number').innerText
+
     function bigger() {
+
      
-     result = parseInt(numberElement)+1
-     numberElement.innerText = result
+     result = parseInt(result) + 1
+     document.getElementById('number').innerText = result
      
      
     }
 
     function smaller() {
 
-      result = parseInt(result)-1
-      numberElement.innerText = result
-
+     
+      result = parseInt(result) - 1
+     document.getElementById('number').innerText = result
+     
     }
 
     

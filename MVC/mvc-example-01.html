@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCV-eksempel</title>
+  <style>
+ table{
+  border: 1px solid black;
+ 
+ }
+ tr{
+  border: 1px solid rgb(250, 75, 75);
+
+  width: 5px;
+  height: 5px;
+ }
+ 
+ td{
+  border: 1px solid black;
+  width: 5px;
+  height: 5px;
+ }
+  </style>
+</head>
+<body>
+  <div id="output"></div>
+  <button id="increase" onclick="row()">Increase</button>
+  <button id="decrease" onclick="cell()">Decrease</button>
+  <table id ="table"></table>
+  <script>
+    const model = {
+      number: 0,
+      increase: function() {
+        this.number++;
+      },
+      decrease: function() {
+        this.number--;
+      }
+    };
+
+    let newrow;
+
+    let table = document.getElementById("table");  
+    function row(){ 
+      newrow = table.insertRow()
+    }   // 테이블의 첫 번째 위치(0번 인덱스)에 새 행 추가  
+    function cell() {newrow.insertCell();}   // 새 행의 첫 번째 셀 추가  
+    cell.innerHTML = "새로운 셀";
+
+
+
+
+    const view = {
+      update: function() {
+        document.getElementById('output').innerHTML = model.number;
+      }
+    };
+    
+    const controller = {
+      init: function() {
+        document.getElementById('increase').addEventListener('click', function() {
+          model.increase();
+          view.update();
+        });
+
+        document.getElementById('decrease').addEventListener('click', function() {
+          model.decrease();
+          view.update();
+        });
+        
+        view.update();
+      }
+    };
+
+    controller.init()
+
+  </script>
+</body>
+</html>

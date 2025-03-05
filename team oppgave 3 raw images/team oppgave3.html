@@ -113,10 +113,11 @@
 
         function startGame() {
             document.getElementById('game-output').innerHTML = `
-                <p>Game has started</p>;
+                <p>Game has started</p>
                 <div id="status"></div>
                 <div id="events"></div>
                 <div id="greetings"></div>
+                <div id="alertbox"></div>
             `;
         }
 
@@ -126,7 +127,7 @@
 
         function displayEvent(message, isPositive) {
             const output = document.getElementById('game-output');
-            output.innerHTML += `<p class="${isPositive ? 'positive' : 'negative'}>${message}</p>`;
+            output.innerHTML += `<p class="${isPositive ? 'positive' : 'negative'}">${message}</p>`;
         }
 
         function displayGreetings(greeting) {

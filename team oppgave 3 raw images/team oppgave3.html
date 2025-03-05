@@ -26,6 +26,9 @@
 
     <button id="start-button" onclick="EventClass()">Start spillet</button>
 
+    <div id="textBox">
+      Test-text
+    </div>
 
     <script>
       let CoolMeter; 
@@ -171,10 +174,11 @@
             output.innerHTML += `<p class="greeting">${greeting}</p>`;
         }
 
-        //function updateCoolness () {
-        //  Kulhet <br>
-        //  <progress id="file" value="10" max="20">  </progress>
-        //}
+        function updateCoolness () {
+          document.getElementById("progressBar").innerHTML = /*html*/ `
+          Kulhet <br>
+          <progress id="file" value="${coolMeter}" max="20">  </progress> `
+        }
         
         // Kommentar: Spillkontroller - funksjoner for å håndtere spillvalg
         // Funksjon: handleEvent - Håndter hendelse (kompis, aggressiv bestemor, kule ting)

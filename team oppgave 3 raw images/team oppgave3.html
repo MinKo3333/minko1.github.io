@@ -19,12 +19,45 @@
     <button id="start-button">Start spillet</button>
 
     <script>
+      let CoolMeter; 
+      let event = []
         // Kommentar: JavaScript-kode begynner her
 
         // Kommentar: Modellene (klasser for Car, Event, Friend)
         // Funksjon: Definer Car-klassen (kulhet på bilen)
         // Funksjon: Definer Event-klassen (hendelser som skjer på veien)
         // Funksjon: Definer Friend-klassen (kompiser og hilsener)
+        function carClass(){
+          let eventname = event.className
+          const alertbox = document.getElementById('alertbox')
+
+          CoolMeter = 3
+          if(eventname.includes(nagative) && CoolMeter>=3){
+            CoolMeter -= 3
+          }
+          if(eventname.includes(nagative) && CoolMeter<3){}
+          if(eventname.includes(positive)){
+            CoolMeter += 3
+          }
+          if(CoolMeter >= 10){
+            document.body.innerHTML = 'Congratulations!'
+          }
+        }
+
+        function EventClass(){
+          let chance = Math.round(Math.random()*10)
+
+          if(5<chance<=10){
+            alertbox = document.getElementById('alertbox')
+            alertbox.innerHTML = `
+            <p class="nagative">Opps! You meet a pile of horse stol! You are stinky now.</p> 
+            `
+            event.push(nagative)
+          }
+
+
+        }
+
 
         // Kommentar: Visning - funksjoner som viser bilens status og hendelser
         // Funksjon: displayCarStatus - Vis bilens kulhet

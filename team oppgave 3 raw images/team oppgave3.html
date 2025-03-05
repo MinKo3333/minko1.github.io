@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cool Car Game</title>
+    <link rel="stylesheet" href="styles.css"/>
     <style>
         /* CSS for spillgrensesnittet */
         /* Kommentar: Legg til enkel styling her */
@@ -13,6 +14,12 @@
 
     <!-- Kommentar: HTML-innhold som viser status og spillknapp -->
     <h1>Cool Car Game</h1>
+
+    <div id="progressBar">
+      Kulhet <br>
+      <progress id="file" value="10" max="20">  </progress>
+    </div>
+
     <div id="game-output">
         <!-- Kommentar: Her vil spillstatusen vises -->
     </div>
@@ -134,6 +141,11 @@
             const output = document.getElementById('game-output');
             output.innerHTML += `<p class="greeting">${greeting}</p>`;
         }
+
+        //function updateCoolness () {
+        //  Kulhet <br>
+        //  <progress id="file" value="10" max="20">  </progress>
+        //}
         
         // Kommentar: Spillkontroller - funksjoner for å håndtere spillvalg
         // Funksjon: handleEvent - Håndter hendelse (kompis, aggressiv bestemor, kule ting)

@@ -16,7 +16,7 @@
     <div id="game-output">
         <!-- Kommentar: Her vil spillstatusen vises -->
     </div>
-    <button id="start-button">Start spillet</button>
+    <button id="start-button">Start game</button>
 
     <script>
       let CoolMeter; 
@@ -63,7 +63,31 @@
         // Funksjon: displayCarStatus - Vis bilens kulhet
         // Funksjon: displayEvent - Vis informasjon om hendelser
         // Funksjon: displayGreetings - Vis hilsener som kan velges
+        document.getElementById('start-button').addEventListener('click', startGame);
 
+        function startGame() {
+            document.getElementById('game-output').innerHTML = `
+                <p>Game has started</p>;
+                <div id="status"></div>
+                <div id="events"></div>
+                <div id="greetings"></div>
+            `;
+        }
+
+        function displayCarStatus(coolMeter) {
+            document.getElementById('game-output').innerHTML += `<p>Coolness: ${coolMeter}</p>`;
+        }
+
+        function displayEvent(message, isPositive) {
+            const output = document.getElementById('game-output');
+            output.innerHTML += `<p class="${isPositive ? 'positive' : 'negative'}>${message}</p>`;
+        }
+
+        function displayGreetings(greeting) {
+            const output = document.getElementById('game-output');
+            output.innerHTML += `<p class="greeting">${greeting}</p>`;
+        }
+        
         // Kommentar: Spillkontroller - funksjoner for å håndtere spillvalg
         // Funksjon: handleEvent - Håndter hendelse (kompis, aggressiv bestemor, kule ting)
         // Funksjon: handleGreeting - Håndter hilsen (korrekt/feil valg)

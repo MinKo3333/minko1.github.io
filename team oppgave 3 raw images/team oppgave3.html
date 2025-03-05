@@ -166,6 +166,7 @@
              ;
           }
         
+
         function displayCarStatus(coolMeter) {
           const statusElement = document.getElementById('status')
           if (statusElement) {
@@ -189,12 +190,37 @@
             }
           }
           
+          function handleEvents() {
+            let randomEvent = Math.floor(Math.random() * 3);
+
+          if (randomEvent === 0) {
+            displayEvent('hestebæsj', false)
+            setTimeout(() => {
+              displayEvent('unngikk', true)
+            }, 2000);
+            setTimeout(() => {
+            displayEvent('for sent. -2 kulhet', false);
+            coolMeter -= 2;
+            displayCarStatus(coolMeter);
+          }, 4000);
+          } else if (randomEvent === 1) {
+            displayEvent('spoiler', true);
+            coolMeter += 5;
+            displayCarStatus(coolMeter);
+          } else {
+            displayEvent('venn', true);
+            coolMeter += 3;
+            displayCarStatus(coolMeter);
+          }
+          }
+
 
 
           //function updateCoolness () {
             //  Kulhet <br>
             //  <progress id="file" value="10" max="20">  </progress>
         //}
+
         
         // Kommentar: Spillkontroller - funksjoner for å håndtere spillvalg
         // Funksjon: handleEvent - Håndter hendelse (kompis, aggressiv bestemor, kule ting)

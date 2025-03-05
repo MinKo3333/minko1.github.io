@@ -56,10 +56,17 @@
           let alertbox = document.getElementById('alertbox')
 
           if(8<chance<=10 && happened == false){
-            
+            function basjevent(){
+              let basjevent = true;
+            }
             alertbox.innerHTML = `
-            <p class="nagative">Opps! You meet a pile of horse stol! You are stinky now.</p> 
+            <p class="nagative">Du kjører inn på en grusvei mellom noen gårder. 
+            HESTEBÆSJ I VEIEN! REAGER fort</p> 
+            <button id="reagere" onclick="basjevent()">react</button>
             `
+            setTimeout(() =>{
+            reagere.style.display = none}, 2000)
+            
             event.push('nagative')
             carClass()
             event = []
@@ -98,7 +105,14 @@
               endcarhappened = true
               
             }
-            if(6<chance<=7 && )
+            if(6<chance<=7){
+              alertbox.innerHTML = `
+              <p class="positive">"There's spoiler on the floor again! Why not double spoiler😎"(+3)</p> 
+              `
+              carClass()
+              event = []
+              endcarhappened = true
+            }
 
          }
 

@@ -17,7 +17,7 @@
 
     <div id="progressBar">
       Kulhet <br>
-      <progress id="file" value="10" max="20">  </progress>
+      <progress id="file" value="0" max="10">  </progress>
     </div>
 
     <div id="game-output">
@@ -26,6 +26,9 @@
 
     <button id="start-button" onclick="EventClass()">Start spillet</button>
 
+    <div id="textBox">
+      Test-text
+    </div>
 
     <script>
       let CoolMeter; 
@@ -41,15 +44,15 @@
           const alertbox = document.getElementById('alertbox')
 
           CoolMeter = 3
-          if(eventname.includes(nagative) && CoolMeter>=3){
+          if(eventname.includes('nagative') && CoolMeter>=3){
             CoolMeter -= 3
           }
-          if(eventname.includes(nagative) && CoolMeter<3){}
-          if(eventname.includes(positive)){
+          if(eventname.includes('nagative') && CoolMeter<3){}
+          if(eventname.includes('positive')){
             CoolMeter += 3
           }
           if(CoolMeter >= 10){
-            document.body.innerHTML = 'Congratulations!'
+            document.getElementById('game-output').innerHTML = 'Congratulations!'
           }
         }
 
@@ -62,7 +65,7 @@
           let chance = Math.round(Math.random()*10)
           let alertbox = document.getElementById('alertbox')
 
-          if(8<chance<=10 && happened == false){
+          if(8<chance<=10 && poophappened == false){
             function basjevent(){
               let basjevent = true;
             }
@@ -74,6 +77,12 @@
             setTimeout(() =>{
             reagere.style.display = none}, 2000)
             
+            if(basjevent == false){
+              event.push('positive')
+            carClass()
+            event = []
+            poophappened = true
+            }
             event.push('nagative')
             carClass()
             event = []
@@ -114,8 +123,16 @@
             }
             if(6<chance<=7){
               alertbox.innerHTML = `
-              <p class="positive">"There's spoiler on the floor again! Why not double spoiler😎"(+3)</p> 
-              `
+              <p>"There's an old lady on the road. If you look cool enough, she's going to give you a gift!"</p> 
+              <button onclick ="coolenough()">Hey, how are you?</button>`
+              function coolenough(){
+                if(CoolMeter>6){
+                   alertbox.innerHTML ="Thank you for asking Mr.Cool";
+                   event.push('positive')}
+                else { 
+                   alertbox.innerHTML ="I don't speak with Ugly people"
+                   event.push('nagative')}
+              }
               carClass()
               event = []
               endcarhappened = true

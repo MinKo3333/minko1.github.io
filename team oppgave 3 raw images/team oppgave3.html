@@ -185,9 +185,13 @@
             }
           }
           
+          
+          // Kommentar: Spillkontroller - funksjoner for å håndtere spillvalg
+          // Funksjon: handleEvent - Håndter hendelse (kompis, aggressiv bestemor, kule ting)
+          // Funksjon: handleGreeting - Håndter hilsen (korrekt/feil valg)
           function handleEvents() {
-            let randomEvent = Math.floor(Math.random() * 3);
-
+          let randomEvent = Math.floor(Math.random() * 3);
+          
           if (randomEvent === 0) {
             displayEvent('hestebæsj', false)
             setTimeout(() => {
@@ -209,14 +213,25 @@
           }
           }
 
-          //function updateCoolness () {
-            //  Kulhet <br>
-            //  <progress id="file" value="10" max="20">  </progress>
-        //}
-        
-        // Kommentar: Spillkontroller - funksjoner for å håndtere spillvalg
-        // Funksjon: handleEvent - Håndter hendelse (kompis, aggressiv bestemor, kule ting)
-        // Funksjon: handleGreeting - Håndter hilsen (korrekt/feil valg)
+          function handleGreetings(greetingType) {
+            let response = "";
+            if (greetingType === "Hva gjør du?") {
+              response = Math.random()
+            }
+          }
+          displayGreetings(response);
+
+          function updateCoolness(amount) {
+            CoolMeter += amount;
+            if (CoolMeter > 20) CoolMeter = 20;
+            if (CoolMeter < 0) CoolMeter = 0;
+            displayCarStatus(CoolMeter);
+          }
+
+          function nextScene() {
+            displayEvent('Du kan kjøre videre', true);
+            handleEvent();
+          }
         
         // Kommentar: Spillflyt (loop eller spilllogikk)
         // Funksjon: startGame - Start spillflyten, opprett objekter, vis status, håndter hendelser

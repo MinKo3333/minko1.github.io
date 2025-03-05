@@ -16,7 +16,9 @@
     <div id="game-output">
         <!-- Kommentar: Her vil spillstatusen vises -->
     </div>
-    <button id="start-button">Start game</button>
+
+    <button id="start-button" onclick="EventClass()">Start spillet</button>
+
 
     <script>
       let CoolMeter; 
@@ -45,18 +47,62 @@
         }
 
         function EventClass(){
-          let chance = Math.round(Math.random()*10)
 
-          if(5<chance<=10){
-            alertbox = document.getElementById('alertbox')
+          let endcarhappened = false
+          let poophappened = false
+          let cathappened = false
+          let carhappened = false
+          let chance = Math.round(Math.random()*10)
+          let alertbox = document.getElementById('alertbox')
+
+          if(8<chance<=10 && happened == false){
+            
             alertbox.innerHTML = `
             <p class="nagative">Opps! You meet a pile of horse stol! You are stinky now.</p> 
             `
-            event.push(nagative)
-          }
+            event.push('nagative')
+            carClass()
+            event = []
+            poophappened = true
+           }
+            if(8<chance<=10 && poophappened == true){
+            EventClass()
+           }
+            if(0<=chance<4 && cathappened == false){
+              alertbox.innerHTML = `
+              <p class="positive">You jump into a friendly cat! 
+                "Hi, sweet little kitty"
+                The cat said "you are great as you are"(+3)</p> 
+              `
 
+              event.push('positive')
+              carClass()
+              event = []
+              cathappened = true
+            }
+            if(3<chance<=5 && carhappened == false){
+              alertbox.innerHTML = `
+              <p class="positive">"There's spoiler on the floor! You install it to your car. What a day!"(+3)</p> 
+              `
+              event.push('positive')
+              carClass()
+              event = []
+              carhappened = true
+            }
+            if(3<chance<=5 && carhappened == true && endcarhappened ==false){
+              alertbox.innerHTML = `
+              <p class="positive">"There's spoiler on the floor again! Why not double spoiler😎"(+3)</p> 
+              `
+              carClass()
+              event = []
+              endcarhappened = true
+              
+            }
+            if(6<chance<=7 && )
 
-        }
+         }
+
+        
 
 
         // Kommentar: Visning - funksjoner som viser bilens status og hendelser

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Car Game</title>
+    <link rel="stylesheet" href="styles.css"/>
+    <style>
+        /* CSS for spillgrensesnittet */
+        /* Kommentar: Legg til enkel styling her */
+    </style>
+</head>
+<body>
+
+  <!-- Kommentar: HTML-innhold som viser status og spillknapp -->
+  <h1>Cool Car Game</h1>
+
+  <div id="app">      
+    <div id="progressBar">
+      Kulhet <br>
+      <progress id="file" value="10" max="20">  </progress>
+    </div>
+  <!--
+    <div id="game-output">
+       Kommentar: Her vil spillstatusen vises 
+    </div>
+      
+    <div id="textBox">
+      Test-text
+    </div>-->
+      
+    <div id="buttons">
+      <button id="start-button" onclick="EventClass()">Start spillet</button>
+    </div>
+  </div>
+      
+  <script>
+    //Modell
+    var coolMeter = 10; 
+    var event = []
+    var lockedEvents = []
+    var possibleEvents = []
+    const textBox = document.getElementById('textBox')
+    let endcarhappened = false
+    let poophappened = false
+    let cathappened = false
+    let carhappened = false
+    let chance = Math.round(Math.random()*10)
+
+    // Kommentar: JavaScript-kode begynner her
+
+        // Kommentar: Modellene (klasser for Car, Event, Friend)
+        // Funksjon: Definer Car-klassen (kulhet på bilen)
+        // Funksjon: Definer Event-klassen (hendelser som skjer på veien)
+        // Funksjon: Definer Friend-klassen (kompiser og hilsener)
+    function carClass(){
+      let eventname = event.className
+
+      coolMeter = 3
+      if(eventname.includes('negative') && coolMeter>=3){
+        coolMeter -= 3
+      }
+      if(eventname.includes('negative') && coolMeter<3){}
+      if(eventname.includes('positive')){
+        coolMeter += 3
+      }
+      if(coolMeter >= 10){
+        document.getElementById('textBox').innerHTML = 'Congratulations!'
+      }
+    }
+
+    function EventClass(){
+
+      if(8<chance<=10 && poophappened == false){
+        function basjevent(){
+          let basjevent = true;
+        }
+
+        textBox.innerHTML = `
+        <p class="negative">Du kjører inn på en grusvei mellom noen gårder. 
+        HESTEBÆSJ I VEIEN! REAGER fort</p> 
+        <button id="reagere" onclick="basjevent()">react</button>
+            `
+        setTimeout(() =>{
+        reagere.style.display = none}, 2000)
+        
+        if(basjevent == false){
+          event.push('positive')
+          carClass()
+          event = []
+          poophappened = true
+        }
+
+        event.push('negative')
+        carClass()
+        event = []
+        poophappened = true
+      }
+
+      if(8<chance<=10 && poophappened == true){
+        EventClass()
+      }
+
+      if(0<=chance<4 && cathappened == false){
+        textBox.innerHTML = `
+        <p class="positive">You jump into a friendly cat! 
+        "Hi, sweet little kitty"
+        The cat said "you are great as you are"(+3)</p> 
+        `
+
+        event.push('positive')
+        carClass()
+        event = []
+        cathappened = true
+      }
+
+      if(3<chance<=5 && carhappened == false){
+        textBox.innerHTML = `
+        <p class="positive">"There's spoiler on the floor! You install it to your car. What a day!"(+3)</p> 
+        `
+        event.push('positive')
+        carClass()
+        event = []
+        carhappened = true
+      }
+
+      if(3<chance<=5 && carhappened == true && endcarhappened ==false){
+        textBox.innerHTML = `
+        <p class="positive">"There's spoiler on the floor again! Why not double spoiler😎"(+3)</p> 
+        `
+        carClass()
+        event = []
+        endcarhappened = true
+      }
+
+      if(6<chance<=7){
+        textBox.innerHTML = `
+        <p>"There's an old lady on the road. If you look cool enough, she's going to give you a gift!"</p> 
+        <button onclick ="coolenough()">Hey, how are you?</button>`
+        function coolenough(){
+          if(coolMeter>6){
+                textBox.innerHTML ="Thank you for asking Mr.Cool";
+                event.push('positive')
+          } else { 
+            textBox.innerHTML ="I don't speak with Ugly people"
+            event.push('negative')
+          }
+        }
+        carClass()
+        event = []
+        endcarhappened = true
+      } 
+    }
+
+
+    // Kommentar: Visning - funksjoner som viser bilens status og hendelser
+    // Funksjon: displayCarStatus - Vis bilens kulhet
+    // Funksjon: displayEvent - Vis informasjon om hendelser
+    // Funksjon: displayGreetings - Vis hilsener som kan velges
+    document.getElementById('start-button').addEventListener('click', startGame);
+    
+
+    function startGame() {
+      document.getElementById('app').innerHTML = `
+      <div id="progressBar">
+        Kulhet <br>
+        <progress id="file" value="10" max="20">  </progress>
+      </div>
+
+      <div id="textBox">
+        Test-text
+      </div>
+
+      <div id="buttons"></div>
+        `;
+      handleEvents();
+    }
+
+    function displayEvent(message, isPositive) {
+      const eventsElement = document.getElementById('events');
+      if (eventsElement) {
+        eventsElement.innerHTML += 
+        `<p class="${isPositive ? 'positive' : 'negative'}">${message}</p>`;
+      }
+    }
+
+    function displayGreetings(greeting) {
+      const greetingsElement = document.getElementById('greetings');
+      if (greetingsElement) {
+        greetingsElement.innerHTML += `<p class="greeting">${greeting}</p>`;
+      }
+    }
+      
+    function handleEvents() {
+      let randomEvent = Math.floor(Math.random() * 3);
+
+      if (randomEvent === 0) {
+        displayEvent('hestebæsj', false)
+        setTimeout(() => {
+        displayEvent('unngikk', true)
+        }, 2000);
+        setTimeout(() => {
+        displayEvent('for sent. -2 kulhet', false);
+        coolMeter -= 2;
+        displayCarStatus(coolMeter);
+        }, 4000);
+      } else if (randomEvent === 1) {
+        displayEvent('spoiler', true);
+        coolMeter += 5;
+        displayCarStatus(coolMeter);
+      } else {
+        displayEvent('venn', true);
+        coolMeter += 3;
+        displayCarStatus(coolMeter);
+      }
+    }
+
+    function updateCoolness () {
+      document.getElementById("progressBar").innerHTML = /*html*/ `
+      Kulhet <br>
+      <progress id="file" value="${coolMeter}" max="20">  </progress> `
+    }
+        
+        // Kommentar: Spillkontroller - funksjoner for å håndtere spillvalg
+        // Funksjon: handleEvent - Håndter hendelse (kompis, aggressiv bestemor, kule ting)
+        // Funksjon: handleGreeting - Håndter hilsen (korrekt/feil valg)
+        
+        // Kommentar: Spillflyt (loop eller spilllogikk)
+        // Funksjon: startGame - Start spillflyten, opprett objekter, vis status, håndter hendelser
+        
+        // Kommentar: Interaktivitet - spillknapp som starter spillet
+        // Funksjon: EventListener på start-knappen som starter spillet
+        
+  </script>
+
+</body>
+</html>

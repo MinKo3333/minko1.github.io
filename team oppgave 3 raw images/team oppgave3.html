@@ -12,23 +12,23 @@
 </head>
 <body>
 
-    <!-- Kommentar: HTML-innhold som viser status og spillknapp -->
-    <h1>Cool Car Game</h1>
+  <!-- Kommentar: HTML-innhold som viser status og spillknapp -->
+  <h1>Cool Car Game</h1>
 
-    <div id="progressBar">
-      Kulhet <br>
-      <progress id="file" value="0" max="10">  </progress>
-    </div>
+  <div id="progressBar">
+    Kulhet <br>
+    <progress id="file" value="0" max="10">  </progress>
+  </div>
 
-    <div id="game-output">
-        <!-- Kommentar: Her vil spillstatusen vises -->
-    </div>
+  <div id="game-output">
+      <!-- Kommentar: Her vil spillstatusen vises -->
+  </div>
 
-    <button id="start-button">Start spillet</button>
+  <button id="start-button">Start spillet</button>
 
-    <div id="textBox">
-      Test-text
-    </div>
+  <div id="textBox">
+    Test-text
+  </div>
 
     <script>
       class Game {
@@ -104,37 +104,36 @@
             }
           }
 
+    function displayEvent(message, isPositive) {
+      const eventsElement = document.getElementById('events');
+      if (eventsElement) {
+          eventsElement.innerHTML += 
+          `<p class="${isPositive ? 'positive' : 'negative'}">${message}</p>`;
+      }
+    }
 
-        function displayEvent(message, isPositive) {
-          const eventsElement = document.getElementById('events');
-          if (eventsElement) {
-              eventsElement.innerHTML += 
-              `<p class="${isPositive ? 'positive' : 'negative'}">${message}</p>`;
-            }
-          }
-
-          function displayGreetings(greeting) {
-            const greetingsElement = document.getElementById('greetings');
-            if (greetingsElement) {
-              greetingsElement.innerHTML += `<p class="greeting">${greeting}</p>`;
-            }
-          }
-          function reactToManure(choice) {
-            let alertbox = document.getElementById('alertbox');
-            switch (choice) {
-              case 'avoid': CoolMeter += 3;
-                alertbox.innerHTML =  `<p class="positive">Du unngikk bæsjen</p>`;
-                break;
-                case 'drive': CoolMeter -= 2;
-                alertbox.innerHTML = `<p class="negative">Æsj!</p>`;
-                break;
-                case 'stop': CoolMeter += 0;
-                alertbox.innerHTML = `<p class="neutral">Hva nå?</p>`;
-                break;
-            }
-         
-            displayCarStatus(CoolMeter);
-          }
+    function displayGreetings(greeting) {
+      const greetingsElement = document.getElementById('greetings');
+      if (greetingsElement) {
+        greetingsElement.innerHTML += `<p class="greeting">${greeting}</p>`;
+      }
+    }
+    function reactToManure(choice) {
+      let alertbox = document.getElementById('alertbox');
+      switch (choice) {
+        case 'avoid': CoolMeter += 3;
+          alertbox.innerHTML =  `<p class="positive">Du unngikk bæsjen</p>`;
+          break;
+          case 'drive': CoolMeter -= 2;
+          alertbox.innerHTML = `<p class="negative">Æsj!</p>`;
+          break;
+          case 'stop': CoolMeter += 0;
+          alertbox.innerHTML = `<p class="neutral">Hva nå?</p>`;
+          break;
+      }
+    
+      displayCarStatus(CoolMeter);
+    }
 
           
           
@@ -149,7 +148,7 @@
         // Kommentar: Interaktivitet - spillknapp som starter spillet
         // Funksjon: EventListener på start-knappen som starter spillet
         
- </script>
+        </script>
 
 </body>
 </html>

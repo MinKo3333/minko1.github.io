@@ -22,6 +22,7 @@
   <div id="alertbox"></div>
 
   <script>
+
     document.addEventListener("DOMContentLoaded", function() {
         const startButton = document.getElementById("start-button");
         startButton.addEventListener("click", function() {
@@ -31,9 +32,8 @@
 
     class Game {
         constructor() {
-            this.coolMeter = 3;
-            this.gameOver = false;
-        }
+            this.coolMeter = 2;
+            this.gameOver = false;}
 
         startGame() {
             if (this.gameOver) return;
@@ -51,6 +51,7 @@
         }
 
         triggerEvent() {
+          console.log(game.coolMeter)
             if (this.gameOver) return;
 
             let chance = Math.random() * 100;
@@ -84,6 +85,7 @@
             }
 
             document.getElementById("alertbox").innerHTML = `<p>${message}</p>`;
+            console.log(game.coolMeter)
         }
 
         updateCoolness(amount) {

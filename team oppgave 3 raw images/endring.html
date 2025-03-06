@@ -1,81 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Car Game</title>
+    <link rel="stylesheet" href="styles.css"/>
+  </head>
 <body>
+  
+  <h1>Cool Car Game</h1>
+  
+  <div id="progressBar">
+    Kulhet <br>
+    <progress id="file" value="0" max="10"></progress>
+  </div>
+  
+  <div id="game-output"></div>
+  
+  <button id="start-button">Start spillet</button>
+  
+  <div id="alertbox"></div>
+
   <script>
-    const game = {
-      won: false,
-      coolMeter: 3
+    document.addEventListener("DOMContentLoaded", function() {
+        const startButton = document.getElementById("start-button");
+        startButton.addEventListener("click", function() {
+            game.startGame();  
+        });
+    });
+
+    class Game {
+        constructor() {
+            this.coolMeter = 3;
+            this.gameOver = false;
+        }
+
+        startGame() {
+            if (this.gameOver) return;
+          
+            document.getElementById("start-button").innerHTML = 'Neste';
+            document.getElementById("game-output").innerHTML = `
+                
+                <div id="status"></div>
+                <div id="events"></div>
+                <div id="greetings"></div>
+                <div id="alertbox"></div>
+            `;
+           
+            this.triggerEvent();
+        }
+
+        triggerEvent() {
+            if (this.gameOver) return;
+
+            let chance = Math.random() * 100;
+            let message = "";
+
+            if (chance < 20) {
+                message = "💩 Du kjørte på hestebæsj! Reager!";
+                this.updateCoolness(-2);
+            } else if (chance < 40) {
+                message = "🐱 En katt sier: 'Du er kjempekul!'";
+                this.updateCoolness(3);
+            } else if (chance < 50) {
+                if (this.coolMeter >= 6) {
+                    message = "👵 Hvordan går det med deg?";
+                    this.updateCoolness(3);
+                } else {
+                    message = "👵 I don't speak with ugly people.";
+                    this.updateCoolness(-1);
+                }
+            } else if (chance < 70) {
+                if (this.coolMeter >= 7) {
+                    message = "🤵 Du ser ut som en suksessfull person! Her er 3 kulepoeng!";
+                    this.updateCoolness(3);
+                } else {
+                    message = "🤵 Ugh, jeg hater middelmådige folk.";
+                    this.updateCoolness(-1);
+                }
+            } else {
+                message = "En snill gutt er på veien. Han vasker bilen din gratis!";
+                this.updateCoolness(2);
+            }
+
+            document.getElementById("alertbox").innerHTML = `<p>${message}</p>`;
+        }
+
+        updateCoolness(amount) {
+            if (this.gameOver) return;
+
+            this.coolMeter += amount;
+            this.coolMeter = Math.max(0, this.coolMeter);
+
+            let progressBar = document.getElementById("file");
+            if (progressBar) {
+                progressBar.setAttribute("value", this.coolMeter);
+            }
+
+            if (this.coolMeter >= 10) {
+                this.endGame();
+            }
+        }
+
+        endGame() {
+            this.gameOver = true;
+            document.getElementById("game-output").innerHTML = "🎉 Du har vunnet spillet!";
+            document.getElementById("start-button").disabled = true;
+        }
     }
 
-    function decreaseCoolMeter() {
-      if (game.coolMeter < 3) {
-        game.coolMeter = 0;
-      } else {
-        game.coolMeter -= 3
-      }
+    const game = new Game();
+
+    function reactToManure(choice) {
+        let alertbox = document.getElementById('alertbox');
+        switch (choice) {
+            case 'avoid': 
+                game.updateCoolness(3);
+                alertbox.innerHTML = `<p class="positive">Du unngikk bæsjen</p>`;
+                break;
+            case 'drive': 
+                game.updateCoolness(-2);
+                alertbox.innerHTML = `<p class="negative">Æsj!</p>`;
+                break;
+            case 'stop': 
+                alertbox.innerHTML = `<p class="neutral">Hva nå?</p>`;
+                break;
+        }
     }
-
-    function increaseCoolMeter() {
-      if (game.coolMeter > 7) {
-        game.coolMeter = 10;
-      } else {
-        game.coolMeter += 3
-      }
-    }
-
-    const events = ['cat', 'poop'];
-    function getEvent() {
-      const randomIndex = Math.floor(Math.random() * events.length-1);
-      return events[randomIndex];
-    }
-
-    function nextEvent() {
-      const event = getEvent();
-
-      // cat event
-      if (event === 'cat') {
-        console.log('cat event')
-        increaseCoolMeter()
-      }
-
-      // poop event
-      if (event === 'poop') {
-        console.log('poop event')
-        decreaseCoolMeter();
-      }
-    }
-
-    function hasWon() {
-      return game.coolMeter === 10;
-    }
-
-    // View
-    function updateView() {
-      console.log(game.coolMeter)
-    }
-
-    function displayHasWonMessage() {
-      console.log("Congratulations")
-    }
-
-    function start() {
-      console.log('game started')
-      
-      while(!hasWon()) {
-        nextEvent();
-        updateView();
-      }
-
-      displayHasWonMessage();
-    }
-
-    start()
-
   </script>
 </body>
 </html>

@@ -24,7 +24,7 @@
         <!-- Kommentar: Her vil spillstatusen vises -->
     </div>
 
-    <button id="start-button" onclick="EventClass()">Start spillet</button>
+    <button id="start-button">Start spillet</button>
 
     <div id="textBox">
       Test-text
@@ -149,7 +149,7 @@
           // Funksjon: displayGreetings - Vis hilsener som kan velges
           document.getElementById('start-button').addEventListener('click', startGame);
           
-          let coolMeter = 10;
+          let CoolMeter = 10;
           
           function startGame() {
               document.getElementById('game-output').innerHTML = `
@@ -159,14 +159,14 @@
                   <div id="greetings"></div>
                   <div id="alertbox"></div>
               `;
-              displayCarStatus(CoolMeter);
-              handleEvents();
+              displayCarStatus();
+              EventClass();
           }
         
-        function displayCarStatus(coolMeter) {
+        function displayCarStatus() {
           const statusElement = document.getElementById('game-output');
           if (statusElement) {
-            statusElement.innerHTML += `<p>Coolness: ${coolMeter}</p>`;
+            statusElement.innerHTML += `<p>Coolness: ${CoolMeter}</p>`;
             }
           }
 

@@ -22,6 +22,7 @@
   <div id="alertbox"></div>
 
   <script>
+<<<<<<< Updated upstream
     document.addEventListener("DOMContentLoaded", function() {
         const startButton = document.getElementById("start-button");
         startButton.addEventListener("click", function() {
@@ -33,6 +34,84 @@
         constructor() {
             this.coolMeter = 3;
             this.gameOver = false;
+=======
+    let CoolMeter = 10; //Global deklarasjon(trenger ikke deklareres igjen)
+    let event = []
+
+    //Mille
+    // Kommentar: Interaktivitet - spillknapp som starter spillet
+    // Funksjon: EventListener på start-knappen som starter spillet
+    document.addEventListener("DOMContentLoaded", function() {
+      const startButton = document.getElementById("start-button");
+    
+    startButton.addEventListener("click", function () {
+      resetGame();
+      startGame();
+    });
+    });
+    
+    function resetGame() {
+    CoolMeter = 10;
+    document.getElementById("file").value = CoolMeter;
+    document.getElementById("game-output").innerHTML = "";
+    document.getElementById("alertbox").innerHTML = "";
+    
+    console.log("Spillet er tilbakestilt");
+    }
+    
+    function startGame()  {
+      console.log("Spillet starter");
+      document.getElementById('game-output').innerHTML = `
+      <p>Game has started</p>
+      <div id="status"></div>
+      <div id="events"></div>
+      <div id="greetings"></div>
+      <div id="alertbox"></div>
+      `;
+    
+      updateCoolness();
+      triggerRandomEvent();
+    }
+    
+    function updateCoolness() {
+      document.getElementById("file").value = coolness;
+      document.getElementById("game-output").innerHTML += `<p>Coolness: ${coolness}</p>`;
+    }
+      // Kommentar: JavaScript-kode begynner her
+
+      // Kommentar: Modellene (klasser for Car, Event, Friend)
+      // Funksjon: Definer Car-klassen (kulhet på bilen)
+      // Funksjon: Definer Event-klassen (hendelser som skjer på veien)
+      // Funksjon: Definer Friend-klassen (kompiser og hilsener)
+    function carClass(){
+      let eventname = event.className
+      const alertbox = document.getElementById('alertbox')
+
+      if(eventname.includes('nagative') && CoolMeter>=3){
+        CoolMeter -= 3
+      }
+      if(eventname.includes('nagative') && CoolMeter<3){}
+      if(eventname.includes('positive')){
+        CoolMeter += 3
+      }
+      if(CoolMeter >= 10){
+        document.getElementById('game-output').innerHTML = 'Congratulations!'
+      }
+    }
+
+    function EventClass(){
+
+      let endcarhappened = false
+      let poophappened = false
+      let cathappened = false
+      let carhappened = false
+      let chance = Math.round(Math.random()*10)
+      let alertbox = document.getElementById('alertbox')
+
+      if(8<chance<=10 && poophappened == false){
+        function basjevent(){
+          let basjevent = true;
+>>>>>>> Stashed changes
         }
 
         startGame() {
@@ -92,6 +171,7 @@
             this.coolMeter += amount;
             this.coolMeter = Math.max(0, this.coolMeter);
 
+<<<<<<< Updated upstream
             let progressBar = document.getElementById("file");
             if (progressBar) {
                 progressBar.setAttribute("value", this.coolMeter);
@@ -100,6 +180,30 @@
             if (this.coolMeter >= 10) {
                 this.endGame();
             }
+=======
+    // Kommentar: Visning - funksjoner som viser bilens status og hendelser
+    // Funksjon: displayCarStatus - Vis bilens kulhet
+    // Funksjon: displayEvent - Vis informasjon om hendelser
+    // Funksjon: displayGreetings - Vis hilsener som kan velges
+    document.getElementById('start-button').addEventListener('click', startGame);
+    
+    function startGame() {
+        document.getElementById('game-output').innerHTML = `
+            <p>Game has started</p>
+            <div id="status"></div>
+            <div id="events"></div>
+            <div id="greetings"></div>
+            <div id="alertbox"></div>
+        `;
+        displayCarStatus();
+        EventClass();
+    }
+    
+    function displayCarStatus() {
+      const statusElement = document.getElementById('game-output');
+      if (statusElement) {
+        statusElement.innerHTML += `<p>Coolness: ${CoolMeter}</p>`;
+>>>>>>> Stashed changes
         }
 
         endGame() {

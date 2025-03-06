@@ -22,7 +22,8 @@
   <div id="alertbox"></div>
 
   <script>
-<<<<<<< Updated upstream
+
+
     document.addEventListener("DOMContentLoaded", function() {
         const startButton = document.getElementById("start-button");
         startButton.addEventListener("click", function() {
@@ -32,9 +33,11 @@
 
     class Game {
         constructor() {
-            this.coolMeter = 3;
-            this.gameOver = false;
-=======
+
+            this.coolMeter = 2;
+            this.gameOver = false;}
+
+
     let CoolMeter = 10; //Global deklarasjon(trenger ikke deklareres igjen)
     let event = []
 
@@ -111,8 +114,9 @@
       if(8<chance<=10 && poophappened == false){
         function basjevent(){
           let basjevent = true;
->>>>>>> Stashed changes
+
         }
+
 
         startGame() {
             if (this.gameOver) return;
@@ -130,6 +134,7 @@
         }
 
         triggerEvent() {
+          console.log(game.coolMeter)
             if (this.gameOver) return;
 
             let chance = Math.random() * 100;
@@ -163,6 +168,7 @@
             }
 
             document.getElementById("alertbox").innerHTML = `<p>${message}</p>`;
+            console.log(game.coolMeter)
         }
 
         updateCoolness(amount) {
@@ -171,7 +177,7 @@
             this.coolMeter += amount;
             this.coolMeter = Math.max(0, this.coolMeter);
 
-<<<<<<< Updated upstream
+
             let progressBar = document.getElementById("file");
             if (progressBar) {
                 progressBar.setAttribute("value", this.coolMeter);
@@ -180,30 +186,7 @@
             if (this.coolMeter >= 10) {
                 this.endGame();
             }
-=======
-    // Kommentar: Visning - funksjoner som viser bilens status og hendelser
-    // Funksjon: displayCarStatus - Vis bilens kulhet
-    // Funksjon: displayEvent - Vis informasjon om hendelser
-    // Funksjon: displayGreetings - Vis hilsener som kan velges
-    document.getElementById('start-button').addEventListener('click', startGame);
-    
-    function startGame() {
-        document.getElementById('game-output').innerHTML = `
-            <p>Game has started</p>
-            <div id="status"></div>
-            <div id="events"></div>
-            <div id="greetings"></div>
-            <div id="alertbox"></div>
-        `;
-        displayCarStatus();
-        EventClass();
-    }
-    
-    function displayCarStatus() {
-      const statusElement = document.getElementById('game-output');
-      if (statusElement) {
-        statusElement.innerHTML += `<p>Coolness: ${CoolMeter}</p>`;
->>>>>>> Stashed changes
+
         }
 
         endGame() {

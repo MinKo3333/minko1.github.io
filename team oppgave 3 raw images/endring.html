@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const game = {
+      won: false,
+      coolMeter: 3
+    }
+
+    function decreaseCoolMeter() {
+      if (game.coolMeter < 3) {
+        game.coolMeter = 0;
+      } else {
+        game.coolMeter -= 3
+      }
+    }
+
+    function increaseCoolMeter() {
+      if (game.coolMeter > 7) {
+        game.coolMeter = 10;
+      } else {
+        game.coolMeter += 3
+      }
+    }
+
+    const events = ['cat', 'poop'];
+    function getEvent() {
+      const randomIndex = Math.floor(Math.random() * events.length-1);
+      return events[randomIndex];
+    }
+
+    function nextEvent() {
+      const event = getEvent();
+
+      // cat event
+      if (event === 'cat') {
+        console.log('cat event')
+        increaseCoolMeter()
+      }
+
+      // poop event
+      if (event === 'poop') {
+        console.log('poop event')
+        decreaseCoolMeter();
+      }
+    }
+
+    function hasWon() {
+      return game.coolMeter === 10;
+    }
+
+    // View
+    function updateView() {
+      console.log(game.coolMeter)
+    }
+
+    function displayHasWonMessage() {
+      console.log("Congratulations")
+    }
+
+    function start() {
+      console.log('game started')
+      
+      while(!hasWon()) {
+        nextEvent();
+        updateView();
+      }
+
+      displayHasWonMessage();
+    }
+
+    start()
+
+  </script>
+</body>
+</html>

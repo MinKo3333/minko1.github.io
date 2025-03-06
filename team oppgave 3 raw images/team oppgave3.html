@@ -29,179 +29,129 @@
   <div id="alertbox">
     Test-text
   </div>
-  
-  <script>
-    let CoolMeter; 
-    let event = []
-
-    //Mille
-    // Kommentar: Interaktivitet - spillknapp som starter spillet
-    // Funksjon: EventListener på start-knappen som starter spillet
-    document.addEventListener("DOMContentLoaded", function() {
-      const startButton = document.getElementById("startButton");
-    
-    startButton.addEventListener("click", function () {
-      resetGame();
-      startGame();
-    });
-    });
-    
-    function resetGame() {
-    coolness = 10;
-    document.getElementById("file").value = coolness;
-    document.getElementById("game-output").innerHTML = "";
-    document.getElementById("alertbox").innerHTML = "";
-    
-    console.log("Spillet er tilbakestilt");
-    }
-    
-    function startGame()  {
-      console.log("Spillet starter");
-      document.getElementById('game-output').innerHTML = `
-      <p>Game has started</p>
-      <div id="status"></div>
-      <div id="events"></div>
-      <div id="greetings"></div>
-      <div id="alertbox"></div>
-      `;
-    
-      updateCoolness();
-      triggerRandomEvent();
-    }
-    
-    function updateCoolness() {
-      document.getElementById("file").value = coolness;
-      document.getElementById("game-output").innerHTML += `<p>Coolness: ${coolness}</p>`;
-    }
-      // Kommentar: JavaScript-kode begynner her
-
-      // Kommentar: Modellene (klasser for Car, Event, Friend)
-      // Funksjon: Definer Car-klassen (kulhet på bilen)
-      // Funksjon: Definer Event-klassen (hendelser som skjer på veien)
-      // Funksjon: Definer Friend-klassen (kompiser og hilsener)
-    function carClass(){
-      let eventname = event.className
-      const alertbox = document.getElementById('alertbox')
-
-      CoolMeter = 3
-      if(eventname.includes('nagative') && CoolMeter>=3){
-        CoolMeter -= 3
-      }
-      if(eventname.includes('nagative') && CoolMeter<3){}
-      if(eventname.includes('positive')){
-        CoolMeter += 3
-      }
-      if(CoolMeter >= 10){
-        document.getElementById('game-output').innerHTML = 'Congratulations!'
-      }
-    }
-
-    function EventClass(){
-
-      let endcarhappened = false
-      let poophappened = false
-      let cathappened = false
-      let carhappened = false
-      let chance = Math.round(Math.random()*10)
-      let alertbox = document.getElementById('alertbox')
-
 
     <script>
-      class Game {
+document.addEventListener("DOMContentLoaded", function() {
+    const startButton = document.getElementById("start-button");
+
+    startButton.addEventListener("click", function() {
+        game.resetGame();  
+        game.startGame();  
+});
+});
+
+class Game {
     constructor() {
         this.coolMeter = 3;
+        this.gameOver = false;
     }
-    
+
     startGame() {
-        
-        document.getElementById("start-button").innerHTML = 'Neste'
-        document.getElementById("game-output").innerHTML = "🚗 Spillet har startet!";
-        this.updateCoolness(0);
-        this.triggerEvent();  // 첫 번째 이벤트 실행
-    }
-        triggerEvent() {
-    let chance = Math.random() * 100; 
-    let message = "";
-
-    if (chance < 10) {  
-        // 💩 Hestebæsj  (10%)
-        message = "💩 Du kjørte på hestebæsj! Reager!";
-        this.updateCoolness(-3);
-    } else if (chance < 40) {  
-        // 🐱 Katt kompliment (20%)
-        message = "🐱 En katt sier: 'Du er kjempekul!'";
-        this.updateCoolness(3);
-    } else if (chance < 50) {  
-        // 👵 Gammel dame (20%)
-        if (this.coolMeter >= 6) {
-            message = "👵 Hvordan går det med deg?";
-            this.updateCoolness(3);
-        } else {
-            message = "👵 I don't speak with ugly people.";
-        }
-    } else if (chance < 70) {  
-        // 🤵 Ny karakter: Rik mann (20%)
-        if (this.coolMeter >= 7) {
-            message = "🤵 Du ser ut som en suksessfull person! Her er 3 kulepoeng!";
-            this.updateCoolness(3);
-        } else {
-            message = "🤵 Ugh, jeg hater middelmådige folk.";
-        }
-    } else {  
-        
-        message = "En snill gutt er på veien. Han vasker bilen din gratis!";
-        this.updateCoolness(2);
-    }
-        document.getElementById("textBox").innerHTML = `<p>${message}</p>`;
-    }
-
-
-    updateCoolness(amount) {
-    this.coolMeter += amount;
-
-
-    
-    if (this.coolMeter < 0) {
-        this.coolMeter = 0;
-    }
-        document.getElementById("file").value = this.coolMeter;
-
-
-    // Kommentar: Visning - funksjoner som viser bilens status og hendelser
-    // Funksjon: displayCarStatus - Vis bilens kulhet
-    // Funksjon: displayEvent - Vis informasjon om hendelser
-    // Funksjon: displayGreetings - Vis hilsener som kan velges
-    document.getElementById('start-button').addEventListener('click', startGame);
-    
-    let CoolMeter = 10;
-    
-    function startGame() {
-        document.getElementById('game-output').innerHTML = `
-            <p>Game has started</p>
+        if (this.gameOver) return;
+      
+        document.getElementById("start-button").innerHTML = 'Neste';
+        document.getElementById("game-output").innerHTML = `
+            <p>🚗 Spillet har startet!</p>
             <div id="status"></div>
             <div id="events"></div>
             <div id="greetings"></div>
             <div id="alertbox"></div>
         `;
-        displayCarStatus();
-        EventClass();
+       
+        this.triggerEvent();
     }
-    
-    function displayCarStatus() {
-      const statusElement = document.getElementById('game-output');
-      if (statusElement) {
-        statusElement.innerHTML += `<p>Coolness: ${CoolMeter}</p>`;
+
+    resetGame() {
+      if (!this.gameOver) return;
+        this.coolMeter = 3;
+        this.gameOver = false;
+        this.updateCoolness(0); 
+        document.getElementById("file").value = this.coolMeter;
+        document.getElementById("game-output").innerHTML = "";
+        document.getElementById("textBox").innerHTML = "";
+        console.log("Spillet er tilbakestilt");
+    }
+
+    triggerEvent() {
+      console.log(this.coolMeter)
+        if (this.gameOver) return;
+
+        let chance = Math.random() * 100;
+        let message = "";
+
+        if (chance < 20) {
+            message = "💩 Du kjørte på hestebæsj! Reager!";
+            this.updateCoolness(-2);
+        } else if (chance < 40) {
+            message = "🐱 En katt sier: 'Du er kjempekul!'";
+            this.updateCoolness(3);
+        } else if (chance < 50) {
+            if (this.coolMeter >= 6) {
+                message = "👵 Hvordan går det med deg?";
+                this.updateCoolness(3);
+            } else {
+                message = "👵 I don't speak with ugly people.";
+                this.updateCoolness(-1);
+            }
+        } else if (chance < 70) {
+            if (this.coolMeter >= 7) {
+                message = "🤵 Du ser ut som en suksessfull person! Her er 3 kulepoeng!";
+                this.updateCoolness(3);
+            } else {
+                message = "🤵 Ugh, jeg hater middelmådige folk.";
+                this.updateCoolness(-1);
+            }
+        } else {
+            message = "En snill gutt er på veien. Han vasker bilen din gratis!";
+            this.updateCoolness(2);
         }
-      }
 
-    function displayEvent(message, isPositive) {
-      const eventsElement = document.getElementById('events');
-      if (eventsElement) {
-          eventsElement.innerHTML += 
-          `<p class="${isPositive ? 'positive' : 'negative'}">${message}</p>`;
-      }
+        document.getElementById("textBox").innerHTML = `<p>${message}</p>`;
     }
 
+    updateCoolness(amount) {
+        if (this.gameOver) return;
+
+        this.coolMeter += amount;
+
+        if (this.coolMeter < 0) {
+            this.coolMeter = 0;
+        }
+        let progressBar = document.getElementById("file");
+        if (progressBar) {
+            progressBar.setAttribute("value", this.coolMeter); }
+
+        console.log(`CoolMeter oppdatert: ${this.coolMeter}`);
+
+        if (this.coolMeter >= 10) {
+            this.endGame();
+        }
+    }
+
+    endGame() {
+        this.gameOver = true;
+        document.getElementById("game-output").innerHTML = "🎉 Du har vunnet spillet!";
+        document.getElementById("start-button").disabled = true;
+    }
+}
+
+const game = new Game();
+
+        function displayCarStatus() {
+          const statusElement = document.getElementById('game-output');
+          if (statusElement) {
+            statusElement.innerHTML += `<p>Coolness: ${CoolMeter}</p>`;
+            }
+          }
+
+
+        function displayEvent(message, isPositive) {
+          const eventsElement = document.getElementById('events');
+          if (eventsElement) {
+              eventsElement.innerHTML += 
+              `<p class="${isPositive ? 'positive' : 'negative'}">${message}</p>`;
+            }
+          }
 
     function displayGreetings(greeting) {
       const greetingsElement = document.getElementById('greetings');
@@ -226,20 +176,20 @@
       displayCarStatus(CoolMeter);
     }
 
+          
+          
+          // Kommentar: Spillkontroller - funksjoner for å håndtere spillvalg
+          // Funksjon: handleEvent - Håndter hendelse (kompis, aggressiv bestemor, kule ting)
+          // Funksjon: handleGreeting - Håndter hilsen (korrekt/feil valg)
+          
         
-        //Henning 
-        // Kommentar: Spillkontroller - funksjoner for å håndtere spillvalg
-        // Funksjon: handleEvent - Håndter hendelse (kompis, aggressiv bestemor, kule ting)
-        // Funksjon: handleGreeting - Håndter hilsen (korrekt/feil valg)
+        // Kommentar: Spillflyt (loop eller spilllogikk)
+        // Funksjon: startGame - Start spillflyten, opprett objekter, vis status, håndter hendelser
         
-
-      // Minseong
-      // Kommentar: Spillflyt (loop eller spilllogikk)
-      // Funksjon: startGame - Start spillflyten, opprett objekter, vis status, håndter hendelser
-      
-
-      </script>
-
+        // Kommentar: Interaktivitet - spillknapp som starter spillet
+        // Funksjon: EventListener på start-knappen som starter spillet
+        
+ </script>
 
 </body>
 </html>

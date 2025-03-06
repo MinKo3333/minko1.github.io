@@ -31,64 +31,71 @@
     </div>
 
     <script>
-      
-  class SpillFlyt {
+      class Game {
     constructor() {
         this.coolMeter = 3;
     }
-
+    
     startGame() {
-        console.log("🚗 Spill starter!");
+        
+        document.getElementById("start-button").innerHTML = 'Neste'
         document.getElementById("game-output").innerHTML = "🚗 Spillet har startet!";
         this.updateCoolness(0);
         this.triggerEvent();  // 첫 번째 이벤트 실행
     }
+        triggerEvent() {
+    let chance = Math.random() * 100; 
+    let message = "";
 
-    triggerEvent() {
-        let chance = Math.round(Math.random() * 10);
-        let message = "";
-        
-        if (chance >= 8) {
-            message = "💩 Du kjørte på hestebæsj! Reager!";
-            this.updateCoolness(-3);
-        } else if (chance < 4) {
-            message = "🐱 En katt sier: 'Du er kjempekul!'";
+    if (chance < 10) {  
+        // 💩 Hestebæsj  (10%)
+        message = "💩 Du kjørte på hestebæsj! Reager!";
+        this.updateCoolness(-3);
+    } else if (chance < 40) {  
+        // 🐱 Katt kompliment (20%)
+        message = "🐱 En katt sier: 'Du er kjempekul!'";
+        this.updateCoolness(3);
+    } else if (chance < 50) {  
+        // 👵 Gammel dame (20%)
+        if (this.coolMeter >= 6) {
+            message = "👵 Hvordan går det med deg?";
             this.updateCoolness(3);
         } else {
-            message = "👵 En gammel dame venter på en hilsen.";
+            message = "👵 I don't speak with ugly people.";
         }
-
-        document.getElementById("alertbox").innerHTML = `<p>${message}</p>`;
+    } else if (chance < 70) {  
+        // 🤵 Ny karakter: Rik mann (20%)
+        if (this.coolMeter >= 7) {
+            message = "🤵 Du ser ut som en suksessfull person! Her er 3 kulepoeng!";
+            this.updateCoolness(3);
+        } else {
+            message = "🤵 Ugh, jeg hater middelmådige folk.";
+        }
+    } else {  
+        
+        message = "En snill gutt er på veien. Han vasker bilen din gratis!";
+        this.updateCoolness(2);
+    }
+        document.getElementById("textBox").innerHTML = `<p>${message}</p>`;
     }
 
+
     updateCoolness(amount) {
-        this.coolMeter += amount;
-        document.getElementById("coolness-bar").value = this.coolMeter;
+    this.coolMeter += amount;
+
+    
+    if (this.coolMeter < 0) {
+        this.coolMeter = 0;
+    }
+        document.getElementById("file").value = this.coolMeter;
 
         if (this.coolMeter >= 10) {
             document.getElementById("game-output").innerHTML = "🎉 Du er den kuleste sjåføren!";
         }
     }
-}
-
-          document.getElementById('start-button').addEventListener('click', startGame);
-          
-          let CoolMeter = 10;
-          
-          function startGame() {
-              document.getElementById('game-output').innerHTML = `
-                  <p>Game has started</p>
-                  <div id="status"></div>
-                  <div id="events"></div>
-                  <div id="greetings"></div>
-                  <div id="alertbox"></div>
-              `;
-
-              displayCarStatus();
-              EventClass();
-
-          }
-  
+  }
+  const game = new Game();
+  document.getElementById("start-button").addEventListener("click", () => game.startGame());
         
         function displayCarStatus() {
           const statusElement = document.getElementById('game-output');
@@ -142,7 +149,7 @@
         // Kommentar: Interaktivitet - spillknapp som starter spillet
         // Funksjon: EventListener på start-knappen som starter spillet
         
-        </script>
+ </script>
 
 </body>
 </html>

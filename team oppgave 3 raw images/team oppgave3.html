@@ -34,16 +34,19 @@
       class Game {
     constructor() {
         this.coolMeter = 3;
+        this.gameOver = false;
     }
     
     startGame() {
-        
+      if (this.gameOver) return;
         document.getElementById("start-button").innerHTML = 'Neste'
         document.getElementById("game-output").innerHTML = "🚗 Spillet har startet!";
         this.updateCoolness(0);
         this.triggerEvent();  // 첫 번째 이벤트 실행
     }
         triggerEvent() {
+          if (this.gameOver) return;
+
     let chance = Math.random() * 100; 
     let message = "";
 
@@ -81,6 +84,8 @@
 
 
     updateCoolness(amount) {
+      if (this.gameOver) return;
+
     this.coolMeter += amount;
 
     
@@ -89,12 +94,17 @@
     }
         document.getElementById("file").value = this.coolMeter;
 
-        if (this.coolMeter >= 10) {
-            document.getElementById("game-output").innerHTML = "🎉 Du er den kuleste sjåføren!";
+          if (this.coolMeter >= 10) {
+            this.endGame();
         }
     }
+    endGame() {
+        this.gameOver = true;
+        document.getElementById("game-output").innerHTML = "🎉 Du har vunnet spillet!";
+        document.getElementById("start-button").disabled = true;
   }
-  const game = new Game();
+}
+const game = new Game();
   document.getElementById("start-button").addEventListener("click", () => game.startGame());
         
         function displayCarStatus() {
@@ -104,13 +114,14 @@
             }
           }
 
-    function displayEvent(message, isPositive) {
-      const eventsElement = document.getElementById('events');
-      if (eventsElement) {
-          eventsElement.innerHTML += 
-          `<p class="${isPositive ? 'positive' : 'negative'}">${message}</p>`;
-      }
-    }
+
+        function displayEvent(message, isPositive) {
+          const eventsElement = document.getElementById('events');
+          if (eventsElement) {
+              eventsElement.innerHTML += 
+              `<p class="${isPositive ? 'positive' : 'negative'}">${message}</p>`;
+            }
+          }
 
     function displayGreetings(greeting) {
       const greetingsElement = document.getElementById('greetings');
@@ -148,7 +159,7 @@
         // Kommentar: Interaktivitet - spillknapp som starter spillet
         // Funksjon: EventListener på start-knappen som starter spillet
         
-        </script>
+ </script>
 
 </body>
 </html>

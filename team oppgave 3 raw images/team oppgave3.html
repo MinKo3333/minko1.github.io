@@ -24,7 +24,7 @@
         <!-- Kommentar: Her vil spillstatusen vises -->
     </div>
 
-    <button id="start-button" onclick="EventClass()">Start spillet</button>
+    <button id="start-button">Start spillet</button>
 
     <div id="textBox">
       Test-text
@@ -209,7 +209,7 @@
           // Funksjon: displayGreetings - Vis hilsener som kan velges
           document.getElementById('start-button').addEventListener('click', startGame);
           
-          let coolMeter = 10;
+          let CoolMeter = 10;
           
           function startGame() {
               document.getElementById('game-output').innerHTML = `
@@ -219,12 +219,18 @@
                   <div id="greetings"></div>
                   <div id="alertbox"></div>
               `;
+<<<<<<< HEAD
               displayCarStatus(CoolMeter);
               EventClass()
              ;
+=======
+              displayCarStatus();
+              EventClass();
+>>>>>>> main
           }
   
         
+<<<<<<< HEAD
 
 
 
@@ -232,8 +238,12 @@
 
         function displayCarStatus(coolMeter) {
           const statusElement = document.getElementById('status')
+=======
+        function displayCarStatus() {
+          const statusElement = document.getElementById('game-output');
+>>>>>>> main
           if (statusElement) {
-            statusElement.innerHTML += `<p>Coolness: ${coolMeter}</p>`;
+            statusElement.innerHTML += `<p>Coolness: ${CoolMeter}</p>`;
             }
           }
 
@@ -252,6 +262,7 @@
               greetingsElement.innerHTML += `<p class="greeting">${greeting}</p>`;
             }
           }
+<<<<<<< HEAD
       
           //function updateCoolness () {
             //  Kulhet <br>
@@ -268,6 +279,31 @@
         // Kommentar: Spillkontroller - funksjoner for å håndtere spillvalg
         // Funksjon: handleEvent - Håndter hendelse (kompis, aggressiv bestemor, kule ting)
         // Funksjon: handleGreeting - Håndter hilsen (korrekt/feil valg)
+=======
+          function reactToManure(choice) {
+            let alertbox = document.getElementById('alertbox');
+            switch (choice) {
+              case 'avoid': CoolMeter += 3;
+                alertbox.innerHTML =  `<p class="positive">Du unngikk bæsjen</p>`;
+                break;
+                case 'drive': CoolMeter -= 2;
+                alertbox.innerHTML = `<p class="negative">Æsj!</p>`;
+                break;
+                case 'stop': CoolMeter += 0;
+                alertbox.innerHTML = `<p class="neutral">Hva nå?</p>`;
+                break;
+            }
+         
+            displayCarStatus(CoolMeter);
+          }
+
+          
+          
+          // Kommentar: Spillkontroller - funksjoner for å håndtere spillvalg
+          // Funksjon: handleEvent - Håndter hendelse (kompis, aggressiv bestemor, kule ting)
+          // Funksjon: handleGreeting - Håndter hilsen (korrekt/feil valg)
+          
+>>>>>>> main
         
         // Kommentar: Spillflyt (loop eller spilllogikk)
         // Funksjon: startGame - Start spillflyten, opprett objekter, vis status, håndter hendelser

@@ -54,105 +54,6 @@
         // Funksjon: Definer Car-klassen (kulhet på bilen)
         // Funksjon: Definer Event-klassen (hendelser som skjer på veien)
         // Funksjon: Definer Friend-klassen (kompiser og hilsener)
-    function carClass(){
-      let eventname = event.className
-
-      coolMeter = 3
-      if(eventname.includes('negative') && coolMeter>=3){
-        coolMeter -= 3
-      }
-      if(eventname.includes('negative') && coolMeter<3){}
-      if(eventname.includes('positive')){
-        coolMeter += 3
-      }
-      if(coolMeter >= 10){
-        document.getElementById('textBox').innerHTML = 'Congratulations!'
-      }
-    }
-
-    function EventClass(){
-
-      if(8<chance<=10 && poophappened == false){
-        function basjevent(){
-          let basjevent = true;
-        }
-
-        textBox.innerHTML = `
-        <p class="negative">Du kjører inn på en grusvei mellom noen gårder. 
-        HESTEBÆSJ I VEIEN! REAGER fort</p> 
-        <button id="reagere" onclick="basjevent()">react</button>
-            `
-        setTimeout(() =>{
-        reagere.style.display = none}, 2000)
-        
-        if(basjevent == false){
-          event.push('positive')
-          carClass()
-          event = []
-          poophappened = true
-        }
-
-        event.push('negative')
-        carClass()
-        event = []
-        poophappened = true
-      }
-
-      if(8<chance<=10 && poophappened == true){
-        EventClass()
-      }
-
-      if(0<=chance<4 && cathappened == false){
-        textBox.innerHTML = `
-        <p class="positive">You jump into a friendly cat! 
-        "Hi, sweet little kitty"
-        The cat said "you are great as you are"(+3)</p> 
-        `
-
-        event.push('positive')
-        carClass()
-        event = []
-        cathappened = true
-      }
-
-      if(3<chance<=5 && carhappened == false){
-        textBox.innerHTML = `
-        <p class="positive">"There's spoiler on the floor! You install it to your car. What a day!"(+3)</p> 
-        `
-        event.push('positive')
-        carClass()
-        event = []
-        carhappened = true
-      }
-
-      if(3<chance<=5 && carhappened == true && endcarhappened ==false){
-        textBox.innerHTML = `
-        <p class="positive">"There's spoiler on the floor again! Why not double spoiler😎"(+3)</p> 
-        `
-        carClass()
-        event = []
-        endcarhappened = true
-      }
-
-      if(6<chance<=7){
-        textBox.innerHTML = `
-        <p>"There's an old lady on the road. If you look cool enough, she's going to give you a gift!"</p> 
-        <button onclick ="coolenough()">Hey, how are you?</button>`
-        function coolenough(){
-          if(coolMeter>6){
-            textBox.innerHTML ="Thank you for asking Mr.Cool";
-            event.push('positive')
-          } else { 
-            textBox.innerHTML ="I don't speak with Ugly people"
-            event.push('negative')
-          }
-        }
-        carClass()
-        event = []
-        endcarhappened = true
-      } 
-    }
-
 
     // Kommentar: Visning - funksjoner som viser bilens status og hendelser
     // Funksjon: displayCarStatus - Vis bilens kulhet
@@ -170,21 +71,11 @@
       </div>
 
       <div id="textBox">
-        Test-text
       </div>
 
       <div id="buttons"></div>
         `;
       nextEvent()
-      //handleEvents();   Legg inn igjen senere
-    }
-
-    function displayEvent(message, isPositive) {
-      const eventsElement = document.getElementById('events');
-      if (eventsElement) {
-        eventsElement.innerHTML += 
-        `<p class="${isPositive ? 'positive' : 'negative'}">${message}</p>`;
-      }
     }
 
     function meetingFriend() { // Kan dele i to. En for første møte og en for andre
@@ -233,29 +124,32 @@
 
     function greet(input) {
       if (input && coolMeter > 10) {
-        textBox.innerHTML = "Right choice and also cool"
+        textBox.innerHTML = "Riktig valg og også kul"
         buttons.innerHTML = "<button onclick='nextEvent()'>Neste scene</button>"
       } else if (input && coolMeter <= 10) {
-        textBox.innerHTML = "Right choice, but not cool"
+        textBox.innerHTML = "Riktig valg, men ikke kul"
         buttons.innerHTML = "<button onclick='nextEvent()'>Neste scene</button>"
       } else {
-        textBox.innerHTML = "Wrong choice"
+        textBox.innerHTML = "Feil valg"
         buttons.innerHTML = "<button onclick='nextEvent()'>Neste scene</button>"
       }
     }
     
     function nextEvent() {
       console.log('next event')
+      textBox.innerHTML = ''
+
       if (eventsLeft > 3) { //eksempel-tall
-        //coolMeter event
-        changeCM()
+        coolnessEvent()
+        //changeCM()
         eventsLeft--
-        buttons.innerHTML = "<button onclick='nextEvent()'>Neste scene</button>"
+        //buttons.innerHTML = "<button onclick='nextEvent()'>Neste scene</button>"
       } else if (eventsLeft == 3) {
         meetingFriend()
         eventsLeft--
       } else if (eventsLeft == 2) {
-        changeCM()
+        coolnessEvent()
+        //changeCM()
         eventsLeft--
       } else if (friends.length == 1) { //kan bruke eventsLeft på alle
         meetingFriend()
@@ -265,50 +159,54 @@
       }
     }
 
-    function changeCM() { //To do: Tekst og ikke random
+    function coolnessEvent() {
+      if (possibleEvents[0] == 'spoiler') {
+        textBox.innerHTML = 'Du finner en spoiler på bakken. Vil du feste den på bilen?'
+        buttons.innerHTML = `<button onclick='pickUp()'>Ja, den så kul ut.</button> 
+        <button onclick='noPickUp()'>Nei, jeg vil kjøre videre</button> `
+        console.log('Kommer hit?')
+      } else if (possibleEvents[0] == 'poop') {
+        textBox.innerHTML = 'Du kjører over en hestebæsj. Ikke kult!'
+        buttons.innerHTML = "<button onclick='nextEvent()'>Neste scene.</button>"
+        changeCM(-3)
+      } else if (possibleEvents[0] == 'panserornament') {
+        textBox.innerHTML = 'Du finner et panserornament på bakken. Vil du feste den på bilen?'
+        buttons.innerHTML = `<button onclick='pickUp()'>Ja, den så kul ut.</button> 
+        <button onclick='noPickUp()'>Nei, jeg vil kjøre videre</button> `
+      }
+      possibleEvents.splice(0,1)
+    }
+
+    function pickUp() {
+      textBox.innerHTML = 'Du plukker opp dingsen fra bakken og fester den på bilen.'
+      buttons.innerHTML = "<button onclick='nextEvent()'>Neste scene.</button>"
+      changeCM(4)
+    }
+
+    function noPickUp() {
+      textBox.innerHTML = "Du kjører videre uten å plukke opp noe. Ingen forandring i kulhet."
+      buttons.innerHTML = "<button onclick='nextEvent()'>Neste scene.</button>"
+    }
+
+    function changeCM(input) { //To do: Tekst og ikke random
       cmChange = (Math.floor(Math.random() * 8)-3)
+      if (input) {cmChange = input}
       coolMeter += cmChange
       updateCoolness()
-      textBox.innerHTML = cmChange + ' ' + coolMeter
+      if(cmChange<0) {
+        textBox.innerHTML += '<br>' + cmChange + ' kulhet <br> Ny total: ' + coolMeter
+        return
+      }
+      textBox.innerHTML += '<br>+' + cmChange + ' kulhet <br> Ny total: ' + coolMeter
     }
     
     function destination() {
       friends = ['p1', 'p2']
       eventsLeft = 5
       coolMeter = 10
+      possibleEvents = ['spoiler', 'poop', 'panserornament']
       textBox.innerHTML = "Du er fremme. Reisen er over"
       buttons.innerHTML = "<button onclick='startGame()'>Starte på nytt?</button>"
-    }
-
-    function displayGreetings(greeting) {
-      const greetingsElement = document.getElementById('greetings');
-      if (greetingsElement) {
-        greetingsElement.innerHTML += `<p class="greeting">${greeting}</p>`;
-      }
-    }
-      
-    function handleEvents() {
-      let randomEvent = Math.floor(Math.random() * 3);
-
-      if (randomEvent === 0) {
-        displayEvent('hestebæsj', false)
-        setTimeout(() => {
-        displayEvent('unngikk', true)
-        }, 2000);
-        setTimeout(() => {
-        displayEvent('for sent. -2 kulhet', false);
-        coolMeter -= 2;
-        displayCarStatus(coolMeter);
-        }, 4000);
-      } else if (randomEvent === 1) {
-        displayEvent('spoiler', true);
-        coolMeter += 5;
-        displayCarStatus(coolMeter);
-      } else {
-        displayEvent('venn', true);
-        coolMeter += 3;
-        displayCarStatus(coolMeter);
-      }
     }
 
     function updateCoolness () {

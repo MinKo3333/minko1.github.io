@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>for loop list</title>
+</head>
+<body>
+  <input type="number" id="inputnumberfelt" ><button id="submitbutton1">submit</button>
+  <br>
+  <input type="text" id="inputstringfelt" ><button id="submitbutton2">submit</button>
+  <div id="result"></div>
+  <script>
+    
+    
+    let submitbutton1 = document.getElementById('submitbutton1')
+    let submitbutton2 = document.getElementById('submitbutton2')
+  
+
+    submitbutton1.addEventListener('click', function(){
+      document.getElementById('result').innerHTML=''
+      let stopnumber = document.getElementById('inputnumberfelt').value
+    for(let startnumber = 1; startnumber <= parseInt(stopnumber) ; startnumber++)
+      {
+        document.getElementById('result').innerHTML+= `<li> ${startnumber*2} </li>`
+      }})
+      
+//Lag en funksjon som teller opp antall vokaler i en string ved hjelp av en 
+// for-løkke Vokaler: a, e, i, o, u, y, æ, ø, å Bruk en variabel for hver av 
+// vokalene feks let aCounter  = 0 som plusses oppover dersom du finner 
+// bokstaven i tekststringen
+
+    let vokal = new Set('aeiouyæøå')
+  
+    submitbutton2.addEventListener('click', function(){
+     
+      let text = document.getElementById('inputstringfelt').value
+      let arr = []
+      let numberofvokal = 0
+      
+      for(i = 0; i< text.length; i++){
+        arr.push(text.charAt(i))
+      } 
+      arr.forEach(bokstav => { if(vokal.has(bokstav)) numberofvokal++ 
+      });
+      document.getElementById('result').innerHTML = numberofvokal
+    })
+
+  </script>
+  </body>
+</html>

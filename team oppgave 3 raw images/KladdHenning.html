@@ -13,14 +13,14 @@
 <body>
 
   <!-- Kommentar: HTML-innhold som viser status og spillknapp -->
-  <h1>Cool Car Game</h1>
+  <h1>Car Game</h1>
 
   <div id="app">      
-    <div id="progressBar">
+      <!--<div id="progressBar">
       Kulhet <br>
       <progress id="file" value="10" max="20">  </progress>
     </div>
-  <!--
+
     <div id="game-output">
        Kommentar: Her vil spillstatusen vises 
     </div>
@@ -30,17 +30,18 @@
     </div>-->
       
     <div id="buttons">
-      <button id="start-button" onclick="EventClass()">Start spillet</button>
+      <button id="start-button" onclick="startGame()">Start spillet</button>
     </div>
   </div>
-      
+
   <script>
     //Modell
     var coolMeter = 10; 
     var event = []
-    var lockedEvents = []
-    var possibleEvents = []
-    const textBox = document.getElementById('textBox')
+    var lockedItemEvents = []
+    var friends = ['p1', 'p2']
+    var possibleEvents = ['spoiler', 'poop', 'panserornament']
+    var eventsLeft = 5;
     let endcarhappened = false
     let poophappened = false
     let cathappened = false
@@ -139,8 +140,8 @@
         <button onclick ="coolenough()">Hey, how are you?</button>`
         function coolenough(){
           if(coolMeter>6){
-                textBox.innerHTML ="Thank you for asking Mr.Cool";
-                event.push('positive')
+            textBox.innerHTML ="Thank you for asking Mr.Cool";
+            event.push('positive')
           } else { 
             textBox.innerHTML ="I don't speak with Ugly people"
             event.push('negative')
@@ -157,10 +158,11 @@
     // Funksjon: displayCarStatus - Vis bilens kulhet
     // Funksjon: displayEvent - Vis informasjon om hendelser
     // Funksjon: displayGreetings - Vis hilsener som kan velges
-    document.getElementById('start-button').addEventListener('click', startGame);
+    //document.getElementById('start-button').addEventListener('click', startGame);
     
 
     function startGame() {
+      console.log('reached start function')
       document.getElementById('app').innerHTML = `
       <div id="progressBar">
         Kulhet <br>
@@ -173,7 +175,8 @@
 
       <div id="buttons"></div>
         `;
-      handleEvents();
+      nextEvent()
+      //handleEvents();   Legg inn igjen senere
     }
 
     function displayEvent(message, isPositive) {
@@ -182,6 +185,99 @@
         eventsElement.innerHTML += 
         `<p class="${isPositive ? 'positive' : 'negative'}">${message}</p>`;
       }
+    }
+
+    function meetingFriend() { // Kan dele i to. En for første møte og en for andre
+      console.log("reached meeting friend")
+      correctGreeting = [true, false, false]
+      order = []
+      for (i=0; i<3; i++) {
+        index = Math.floor(Math.random() * correctGreeting.length)
+        order.push(correctGreeting[index])
+        correctGreeting.splice(index, 1)
+      }
+      if (friends.length == 2) {
+        if (Math.random()<0.5) {
+          textBox.innerHTML = "Du ser VENN 1 gå langs veien og stopper opp. Hvordan vil du hilse?"
+          buttons.innerHTML = /*html*/ `       
+          <button onclick="greet(${order[0]})">"Ute og får deg litt frisk luft?"</button>
+          <button onclick="greet(${order[1]})">"Hvor skal du?"</button>
+          <button onclick="greet(${order[2]})">Tut med bilhornet</button>
+          `
+          friends.splice(0,1)
+        } else {
+          textBox.innerHTML = "Du ser VENN2 gå langs veien. Hvordan vil du hilse?"
+          buttons.innerHTML = /*html*/ `
+          <button onclick="greet(${order[0]})">"Ute og trener igjen?"</button>
+          <button onclick="greet(${order[1]})">"Neimen, var det den karen som var ute å gikk?"</button>
+          <button onclick="greet(${order[2]})">Tut med bilhornet</button>
+          `
+          friends.splice(1,1)
+        }
+      } else if (friends[0] = 'p1') {
+        textBox.innerHTML = "Du ser VENN 1 gå langs veien og stopper opp. Hvordan vil du hilse?"
+        buttons.innerHTML = /*html*/ `       
+          <button onclick="greet(${order[0]})">"Ute og får deg litt frisk luft?"</button>
+          <button onclick="greet(${order[1]})">"Hvor har du tenkt det? Vil du sitte på?"</button>
+          <button onclick="greet(${order[2]})">Tut med bilhornet</button>
+        `
+      } else if (friends[0] = 'p2') {
+        textBox.innerHTML = "Du ser VENN2 gå langs veien. Hvordan vil du hilse?"
+          buttons.innerHTML = /*html*/ `
+          <button onclick="greet(${order[0]})">"Ute og trener igjen?"</button>
+          <button onclick="greet(${order[1]})">"Neimen, var det den karen som var ute å gikk?"</button>
+          <button onclick="greet(${order[2]})">Tut med bilhornet</button>
+        `
+      }
+    }
+
+    function greet(input) {
+      if (input && coolMeter > 10) {
+        textBox.innerHTML = "Right choice and also cool"
+        buttons.innerHTML = "<button onclick='nextEvent()'>Neste scene</button>"
+      } else if (input && coolMeter <= 10) {
+        textBox.innerHTML = "Right choice, but not cool"
+        buttons.innerHTML = "<button onclick='nextEvent()'>Neste scene</button>"
+      } else {
+        textBox.innerHTML = "Wrong choice"
+        buttons.innerHTML = "<button onclick='nextEvent()'>Neste scene</button>"
+      }
+    }
+    
+    function nextEvent() {
+      console.log('next event')
+      if (eventsLeft > 3) { //eksempel-tall
+        //coolMeter event
+        changeCM()
+        eventsLeft--
+        buttons.innerHTML = "<button onclick='nextEvent()'>Neste scene</button>"
+      } else if (eventsLeft == 3) {
+        meetingFriend()
+        eventsLeft--
+      } else if (eventsLeft == 2) {
+        changeCM()
+        eventsLeft--
+      } else if (friends.length == 1) { //kan bruke eventsLeft på alle
+        meetingFriend()
+        friends = []
+      } else if (friends.length == 0) {
+        destination()
+      }
+    }
+
+    function changeCM() { //To do: Tekst og ikke random
+      cmChange = (Math.floor(Math.random() * 8)-3)
+      coolMeter += cmChange
+      updateCoolness()
+      textBox.innerHTML = cmChange + ' ' + coolMeter
+    }
+    
+    function destination() {
+      friends = ['p1', 'p2']
+      eventsLeft = 5
+      coolMeter = 10
+      textBox.innerHTML = "Du er fremme. Reisen er over"
+      buttons.innerHTML = "<button onclick='startGame()'>Starte på nytt?</button>"
     }
 
     function displayGreetings(greeting) {

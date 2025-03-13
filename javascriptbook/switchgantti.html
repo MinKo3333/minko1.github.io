@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+
+const rawInput = prompt('Write your birth year','')
+const year = Number(rawInput)
+
+let gan
+switch((year+7)%10){
+  case 0: gan = '계'
+  break
+  case 1: gan = '갑'
+  break
+  case 2: gan ='을'
+  break
+  case 3: gan ='병'
+  break
+  case 4: gan ='정'
+  break
+  case 5: gan ='무'
+  break
+  case 6: gan ='기'
+  break
+  case 7: gan ='경'
+  break
+  case 8: gan ='신'
+  break
+  case 9: gan ='임'
+  break
+}
+
+let tti 
+switch((year+9)%12){
+  case 0: tti = '해'
+  break
+  case 1: tti = '자'
+  break
+  case 2: tti = '축'
+  break
+  case 3: tti = '인'
+  break
+  case 4: tti = '묘'
+  break
+  case 5: tti = '진'
+  break
+  case 6: tti = '사'
+  break
+  case 7: tti = '오'
+  break
+  case 8: tti = '미'
+  break
+  case 9: tti = '신'
+  break
+  case 10: tti = '유'
+  break
+  case 11: tti = '술'
+  break
+  
+}
+
+
+alert(`${year} is ${gan}${tti}`)
+
+</script> 
+</body>
+</html>

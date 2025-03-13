@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #ytresirkel{
+      border-radius: 50%;
+      background-color: black;
+      width: 400px;
+      height: 400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #indresirkel{
+      border-radius: 50%;
+      background-color: rgb(255, 255, 255);
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .svarboks{
+      font-weight: 900;
+      font-size: 150px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+    }
+    .answer{
+      font-weight: lighter;
+      font-size: medium;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="ytresirkel">
+    <div id="indresirkel">
+      <div id="svarboks" class = "svarboks" onclick="generateSvar()">8</div>
+    </div>
+  </div>
+
+  <script>
+    let svarboks = document.getElementById('svarboks')
+    
+    svarene = ['Spør meg om 5 minutter, jeg tenker fortsatt.',
+'Kanskje... men bare hvis du synger en sang først.',
+'Magien er tom, prøv igjen senere.',
+'Svaret er i postkassa di… sjekk om 3-5 virkedager.',
+'Jeg vet ikke, men du ser ut som du vet svaret selv!',
+'Hmmm... Jeg tror katten din har svaret.',
+'Nei... eller vent... kanskje... nei, glem det.',
+'Klarer du å balansere en skje på nesen? Hvis ja, så JA.',
+'Kanskje. Men vær forberedt på konsekvensene.',
+'Jeg sier JA, men skjebnen sier kanskje ikke.',
+'Svaret er 42.',
+'Bare hvis du hopper tre ganger og sier "MAGI".',
+'Nei, men kjøp en pizza. Det hjelper.',
+'Absolutt! Men ikke si det til noen.',
+'Google det.',
+'Tja, hvis du betaler meg nok, så kanskje.',
+'Vent, hva spurte du om igjen?',
+'Jeg skulle ønske jeg visste. Jeg er bare en digital ball!',
+'JA! Nei... Eller vent... Ehh... spør igjen!',
+'Beklager.. men svaret er sensurert av regjeringen.']
+
+
+    function generateSvar(){
+
+       if(svarene.length<1){
+        svarboks.innerHTML = 'insert more coin'
+      }
+else{
+      if(svarboks.className !== 'answer'){
+        svarboks.classList.remove('svarboks')
+        svarboks.classList.add('answer')}
+
+      let answerindex = Math.floor(Math.random()*svarene.length)
+
+ 
+      svarboks.innerHTML = svarene[answerindex]
+      svarene.splice(answerindex,1)
+      
+      console.log(answerindex)
+    }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #container{border: 1px solid black;
+               display: flex;
+               flex-flow: wrap row;
+               width: 160px;}
+
+    .sirkulær{border: 1px solid black;
+              border-radius: 50%;
+              width: 30px;
+              height: 30px;
+              background-color: lightgray;}
+
+    .lighton{border: 1px solid black;
+              border-radius: 50%;
+              width: 30px;
+              height: 30px;
+              background-color: rgb(255, 255, 196);}
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+
+
+  </div>
+
+
+  <button id="startgame" onclick="updateView()">light on</button>
+  <button onclick="stop()">stop</button>
+  <div id="timer"></div>
+  <div id="result"></div>
+
+ <script>
+
+   for(let index=0; index<=24; index++){
+
+    document.getElementsByClassName('sirkulær')[index].id =  index
+
+  }  // set id
+  
+
+let lampbefore
+let lampnow
+
+let startTimer
+let clicked = false
+
+function updateView(){
+
+
+  if(startTimer){
+
+clearInterval(startTimer)
+startTimer = null
+}
+  
+let startsecond = 0
+
+  function timerupdate(){
+    
+    let timer = document.getElementById('timer') 
+    startsecond += 0.01
+    timer.innerHTML = startsecond.toFixed(2)
+   
+  }
+
+  startTimer = setInterval(timerupdate,10)  //timer
+
+  let  startTime = new Date().getTime()
+ 
+
+  if(lampbefore){lampbefore.classList='sirkulær'}
+
+  indexNumber = Math.floor(Math.random()*25)
+
+  lampnow = document.getElementById(indexNumber)
+  lampnow.classList.remove('sirkulær')
+  lampnow.classList.add('lighton') //turn on lamp
+  lampbefore = document.getElementById(indexNumber)
+ 
+  
+  function showResult(){
+    console.log(clicked)
+  if(clicked) {
+  
+  console.log(lampnow)
+  lampnow.removeEventListener('click', showResult)
+
+  return
+}
+  else{
+  
+   lampbefore = document.getElementById(indexNumber)
+  let finishTime = new Date().getTime()
+  let seconds = (finishTime-startTime)/1000 //calculate time
+  let result = document.getElementById('result')
+
+  result.innerHTML += `${seconds} <br>`  //show time
+
+  startTime = null
+  
+  clicked = true 
+  
+  if(startTimer){
+
+    clearInterval(startTimer)
+    setTimeout(updateView,1000)
+ 
+  }}
+
+  }
+ 
+  
+
+
+
+
+  clicked = false
+
+  lampnow.addEventListener('click',showResult)
+}
+
+
+function stop(){
+  if(startTimer){
+    clearInterval(startTimer)
+    startTimer = null
+
+  }
+}
+
+
+  </script> 
+</body>
+</html>
+
+ 

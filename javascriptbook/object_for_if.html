@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="result"></div>
+  <script>
+    //const a = Number(prompt('Please write a month number', ''))
+    let result = document.getElementById('result')
+    const date = new Date
+    let month = date.getMonth()+1
+
+    let seasons = {
+      winter : [12, 1, 2],
+      spring : [3, 4, 5],
+      summer : [6, 7, 8],
+      autumn : [9, 10, 11]
+    }
+
+    for(let key in seasons){
+      if(seasons[key].includes(month)){
+        season = key
+      }
+    }
+    
+    result.innerHTML = `
+    This is ${month}th month. It's ${season}. 
+    `
+
+
+
+  </script>
+</body>
+</html>

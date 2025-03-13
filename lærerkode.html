@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #container{border: 1px solid black;
+               display: flex;
+               flex-flow: wrap row;
+               width: 160px;}
+
+    .sirkulær{border: 1px solid black;
+              border-radius: 50%;
+              width: 30px;
+              height: 30px;
+              background-color: lightgray;}
+
+    .lighton{border: 1px solid black;
+              border-radius: 50%;
+              width: 30px;
+              height: 30px;
+              background-color: rgb(255, 255, 196);}
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+    <div class="sirkulær"></div>
+
+
+  </div>
+
+
+  <button id="startgame" onclick="updateView()">light on</button>
+  <button onclick="stop()">stop</button>
+  <div id="timer"></div>
+  <div id="result"></div>
+
+<script>
+
+  for(let index=0; index<=24; index++){
+
+   document.getElementsByClassName('sirkulær')[index].id =  index
+
+ }  
+ 
+
+let lampbefore;
+let lampnow;
+let startTimer;
+let clicked = false;
+
+
+function updateView(){
+
+ if(startTimer){
+ clearInterval(startTimer)
+ startTimer = null
+}
+ 
+let startsecond = 0;
+
+ function timerupdate(){
+   let timer = document.getElementById('timer') 
+   startsecond += 0.01;
+   timer.innerHTML = startsecond.toFixed(2);
+  
+ }
+
+ startTimer = setInterval(timerupdate, 10)  
+
+
+
+
+   startTime = performance.now();  
+
+ if(lampbefore){
+   lampbefore.classList = 'sirkulær';
+   lampbefore.removeEventListener('click', handleClick);
+ }
+
+let indexNumber = Math.floor(Math.random()*25) 
+
+lampnow = document.getElementById(indexNumber);
+lampnow.classList.remove('sirkulær');
+lampnow.classList.add('lighton') 
+
+
+ lampbefore = lampnow; 
+ clicked = false
+ lampnow.addEventListener('click', handleClick)
+
+   
+}
+function stop(){
+ if(startTimer){
+   clearInterval(startTimer)
+   startTimer = null
+
+ }
+}
+
+
+function handleClick(){
+
+ let finishTime = performance.now();
+
+ let milliseconds = finishTime - startTime;
+ let seconds = milliseconds / 1000;
+       
+ let result = document.getElementById('result');
+ result.innerHTML += `${seconds.toFixed(2)} <br>`;
+
+ clearInterval(startTimer)
+
+ lampnow.removeEventListener('click', handleClick);
+
+ startTime = null
+ clicked = true
+
+ setTimeout(updateView,1000)
+
+}
+</script> 
+</body>
+</html>

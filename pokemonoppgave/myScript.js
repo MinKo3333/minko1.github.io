@@ -33,9 +33,9 @@ let randomPokemon = null;
 
 
 
-let player={
+let player = {
   name : "Bjarne",
-  image: "/Images/pokemonTrainerIdle.png",
+  image: "Images/pokemonTrainerIdle.png",
   playerPokemon: []
 }
 
@@ -57,7 +57,7 @@ function updateView() {
     
     <div class="bottomScreen">
         <div class="player">
-            <img src="${player.image}">
+            <img src=${player.image}>
             <div>${player.name}</div>
         </div>
 
@@ -75,7 +75,7 @@ function updateView() {
 function caughtPokemonView(){
   app.innerHTML = /*HTML*/`
   <div class="caughtContainer">
-    <h1>Du fanget ${playerPokemon[playerPokemon.length - 1].name}</h1>
+    <h1>Du fanget ${player.playerPokemon[player.playerPokemon.length - 1].name}</h1>
     <div class="buttonContainer">
               <button onclick="updateView()">Finn en annen</button>
               <button onclick="showPokemon()">Vis dine pokemon</button>
@@ -85,19 +85,44 @@ function caughtPokemonView(){
 }
 
 function catchPokemon(){
-  playerPokemon.push(randomPokemon);
+  player.playerPokemon.push(randomPokemon);
   caughtPokemonView();
 }
+let opened = false
+let openeddiv = false
 
 function showPokemon(){
-  app.innerHTML= /*HTML*/`<div class = showContainer>
+  let showPokemonelement = document.querySelector('.showContainer')
+  console.log(opened)
+  console.log(openeddiv)
+
+if(showPokemonelement){if(opened){ 
+    document.getElementById('showPokemon').style.display = 'none'
+    opened = false
+   return
+  }
+
+  else{
+    document.getElementById('showPokemon').style.display = 'block'
+    opened = true
+    return}
+  }
+
+  else{
+  app.innerHTML+= /*HTML*/
+  `<div class = showContainer>
+    <div class = pokemoncontainer id='showPokemon'>
     <h1>Fanget pokemon liste</h1>
-    <div class = pokemoncontainer></div>
+    ${player.playerPokemon.map(pokemon => pokemon.name)}
+    </div>
   </div>
   `
+  openeddiv = true
+  opened = true
 
 
-  //console.log(playerPokemon);
+  console.log(player.playerPokemon);
+}
 }
 
 function getRandomPokemon(){

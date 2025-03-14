@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To do list</title>
+</head>
+<body>
+  <div>
+    <input type="text" name="todo">
+    <button onclick="submit()">submit</button>
+  </div>
+
+  <div id="tablearea"></div>
+ 
+
+  <script>
+    
+    let todoinput = document.getElementsByName('todo')[0]
+    let firstclick = false
+    let undone
+
+    document.addEventListener("change",function(event){
+
+      if(event.target.name === 'done'){
+        checked(event.target)
+        console.log(event.target)
+      }
+    })
+
+
+//controller- view- model
+
+function checked(checkbox){
+
+    
+      let row = checkbox.parentElement.parentElement
+      console.log(row)
+      let todoArea = row.cells[1]
+      let value = row.cells[1].innerHTML
+      let finishedtimeArea = row.cells[3]
+      let finishedTimebefore = new Date().toLocaleString()
+      let showTime = finishedTimebefore.slice(5)
+      
+  checkbox.checked? ischecked(checkbox) : isunchecked(checkbox)
+
+
+      function ischecked(){
+       
+        undone = row.cells[1].innerHTML
+        
+        todoArea.innerHTML = `<strike>${value}</strike>` 
+        finishedtimeArea.innerHTML =  showTime
+        return
+      }
+
+      function isunchecked(){
+
+        todoArea.innerHTML = undone
+        finishedtimeArea.innerHTML = ''
+      }
+
+    }
+
+function submit(){
+  if(todoinput.value){
+
+      let value = todoinput.value
+
+      let showTimebefore = new Date().toLocaleString()
+      let showTime = showTimebefore.slice(5)
+     
+      let tablearea = document.getElementById('tablearea')
+
+
+
+      if(!firstclick){
+      runfirstclick()
+      firstclick = true
+      }
+
+      else{
+        let table = document.getElementById('ToDoList')
+        let newdata = table.insertRow()
+        let checkboxArea= newdata.insertCell(0)
+         todoArea = newdata.insertCell(1)
+         timeArea = newdata.insertCell(2)
+         finishedtimeArea = newdata.insertCell(3)
+
+
+
+        checkboxArea.innerHTML = `<input type="checkbox" name = "done" value = "To_do">`
+        todoArea.innerHTML = value 
+        timeArea.innerHTML = showTime
+        
+        todoinput.value = ''
+      }}
+
+    }
+    
+    
+function runfirstclick(){
+
+
+
+  let value = todoinput.value
+  let showTimebefore = new Date().toLocaleString()
+  let showTime = showTimebefore.slice(5)
+  let tablearea = document.getElementById('tablearea')
+  
+
+  tablearea.innerHTML = /*HTML*/`
+        <table id="ToDoList" border = 1px style="border-collapse: collapse" >
+        <tr>
+          <th>check</th>
+          <th>To do</th>
+          <th>start time</th>
+          <th>finished time</th>
+        </tr>
+
+        <tr>
+          <td><input type="checkbox" name = "done" value = "To_do"></td>
+          <td>${value}</td>
+          <td>${showTime}</td>
+          <td></td>
+        </tr>
+      </table>
+          `
+  todoinput.value = ''
+}
+
+  </script>
+</body>
+</html>

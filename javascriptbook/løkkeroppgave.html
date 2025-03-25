@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>loop</title>
+</head>
+
+<body>
+  <script>
+
+    let output = ''
+    const size = 5
+
+    for (let i = 0; i < size; i++) {
+      let a = '*'
+      let b = ''
+      let c = ''
+
+      for (let x = 0; x <= (i * 2) - 1; x++) {
+
+        a += '*'
+      }
+
+      for (let x = 3 ; x >= i  ; x--) {
+
+        b += ' '
+      }
+
+      c = '\n'
+
+      output += b + a + c
+     
+    }
+
+    for (let i = size ; i > 0; i--) {
+
+      let a = ''
+      let b = ''
+      let c = ''
+      
+      for (let x = (i - 2)*2 ; x >= 0 ; x--) {
+
+       a += '*'
+        
+      }
+
+      for (let x = 0; x <= size -i; x++) {
+
+        b += ' '
+      }
+
+      c = '\n'
+
+      output += b + a + c
+
+      
+    }
+
+
+    console.log(output)
+
+  </script>
+</body>
+
+</html>

@@ -25,6 +25,7 @@
 </head>
 
 <body>
+  
   <div id="container">
     <div class="sirkulær"></div>
     <div class="sirkulær"></div>
@@ -121,7 +122,7 @@ let startsecond = 0
   console.log(lampnow)
   lampnow.removeEventListener('click', showResult)
 
-  return
+
 }
   else{
   
@@ -160,7 +161,7 @@ function stop(){
   if(startTimer){
     clearInterval(startTimer)
     startTimer = null
-
+    lampnow.removeEventListener('click', showResult)
   }
 }
 

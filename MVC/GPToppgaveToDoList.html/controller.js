@@ -1,0 +1,4 @@
+
+
+registerbutton.addEventListener('click',addToDo)
+

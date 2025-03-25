@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Array</title>
+</head>
+
+<body>
+  <script>
+    let output = ''
+
+    for (let i = 1; i < 15; i++) {
+      let a = ''
+      let b = ''
+
+      for (let x = 1; x <= (i*2)-1 ; x++) {
+        a += '*'  
+      }
+      
+      for (let y = 1; y <= 14-i; y++) {
+        b += ' '
+      }
+      c = '\n'
+      output += b+a+c 
+
+      
+      
+    }
+    
+    console.log(output)
+  </script>
+</body>
+
+</html>

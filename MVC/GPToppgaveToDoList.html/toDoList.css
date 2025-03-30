@@ -1,10 +1,10 @@
-input{
+input {
   border: 1px solid rgb(143, 143, 134);
   border-radius: 10px;
   margin: 5px;
 }
 
-.buttonMouseOver{
+.buttonMouseOver {
   border: 2px black solid;
   background-color: antiquewhite;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -12,17 +12,31 @@ input{
   margin: 2px;
 }
 
-.button{
+.button {
   border: none;
   background-color: antiquewhite;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: large;
   margin: 2px;
+   
 }
 
-#toDoList, #toDoList th, #toDoList td{
+#toDoList,
+#toDoList th,
+#toDoList td {
   
+  table-layout: auto;
   border: 1px solid gainsboro;
   border-collapse: collapse;
 
+}
+
+#showNumbers{
+  border: none;
+  
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: large;
+  margin: 2px;
+  color: brown;
+  padding: 5px
 }

@@ -1,73 +1,104 @@
-document.getElementById('app').innerHTML = /*HTML*/ `
+updateView();
+function updateView(){
+  model.app.app.innerHTML = /*HTML*/ `
 
-<input id="chore"><button id = "register" class = "button" >register</button><br>
-<div style = "display: flex; flex-wrap= nowrap">
-<button class = "button" id="done">done</button>
-<button class = "button" id="undone">undone</button>
-<button class = "button" id="all">all</button><br>
-<span id = "showNumbers"></span>
-</div>
-<div>
-<table id = "toDoList">
-  <tr>
-    <th><input type = 'checkbox'></th>
-    <th>Chores</th>
-    <th>registered</th>
-    <th>finished</th>
-    <th>delete</th>
-  </tr>
-</table>
-</div>
-`
-// button effect
-const registerbutton = document.getElementById('register')
-const donebutton = document.getElementById('done')
-const undonebutton = document.getElementById('undone')
-const allbutton = document.getElementById('all')
+  <input id="chore" type="text" onchange="saveInput(this.value)"><button onclick = " addItem()" id = "register" class = "button" >register</button><br>
+  <div style = "display: flex; flex-wrap= nowrap">
+  <button class = "button" id="done">done</button>
+  <button class = "button" id="undone">undone</button>
+  <button class = "button" id="all">all</button><br>
+  <span id = "showNumbers"></span>
+  </div>
+  <div>
+  <table id = "toDoList">
+    <tr>
+      <th><input type = 'checkbox'></th>
+      <th>Chores</th>
+      <th>registered</th>
+      <th>finished</th>
+      <th>delete</th>
+    </tr>
+  </table>
 
+  <table>${showList()}</table>
 
-
-registerbutton.onmouseenter = function () { onMouseEnter(registerbutton) }
-registerbutton.onmouseleave = function () { onMouseLeave(registerbutton) }
-allbutton.onmouseenter = function () { onMouseEnter(allbutton) }
-allbutton.onmouseleave = function () { onMouseLeave(allbutton) }
-undonebutton.onmouseenter = function () { onMouseEnter(undonebutton) }
-undonebutton.onmouseleave = function () { onMouseLeave(undonebutton) }
-donebutton.onmouseenter = function () { onMouseEnter(donebutton) }
-donebutton.onmouseleave = function () { onMouseLeave(donebutton) }
-
-
+  </div>
+  `
+}
 
 
 // register button work
-function addToDo() {
-  let toDoListtable = document.getElementById('toDoList')
-  let showNumbers = document.getElementById('showNumbers')
-  let newRow = toDoListtable.insertRow()
-  let newCheckbox = newRow.insertCell()
-  let newChore = newRow.insertCell()
-  let newRegistered = newRow.insertCell()
-  let newFinished = newRow.insertCell()
-  let newdelete = newRow.insertCell()
-  const inputValue = document.getElementById('chore').value
-
-  newCheckbox.innerHTML = `<input class="checkboxes" type = 'checkbox'>`
-
-  let thisCheckbox = newCheckbox.children[0]
-
-  newChore.innerText = inputValue
-  newRegistered.innerHTML = getTime()
-
-  newdelete.innerHTML = `<button class="deleteButton">delete</button>`
-  let thisDeletebutton = newdelete.children[0]
-
-  const id = sendData(inputValue, timedata)
-  addEventListenerToCheckbox(thisCheckbox, id)
-  addEventListenerToDeletebutton(thisDeletebutton, id)
-  
-  
-  showNumbers.innerHTML = `Number of list : ${toDoList.length}`
+function saveInput(newItem){
+  model.input.toDoListInput = newItem;
 }
+
+
+function addItem(){
+  const newItem = model.input.toDoListInput;    
+
+    model.data.toDoList.push({
+      id: Math.floor(Math.random()*255),
+      chore: newItem,
+      registeredTime: getTime(),
+      clearedTime: '',
+      categoryid: 2
+    },
+  );
+  model.input.toDoListInput = "";
+  updateView();
+
+}
+
+function showList(){
+  let html = '';
+  for(let i = 0; i < model.data.toDoList.length; i++){
+    html += /*HTML*/`
+    <tr>
+      <td>
+        <input class="checkboxes" type = 'checkbox'>
+      <td>
+      <td>
+        ${model.data.toDoList[i].chore}
+      </td>
+      <td>
+        ${model.data.toDoList[i].registeredTime}
+      </td>
+     </tr>
+    `;
+  }
+
+  return html;
+}
+
+
+
+// function addToDo() {
+//   let toDoListtable = document.getElementById('toDoList')
+//   let showNumbers = document.getElementById('showNumbers')
+//   let newRow = toDoListtable.insertRow()
+//   let newCheckbox = newRow.insertCell()
+//   let newChore = newRow.insertCell()
+//   let newRegistered = newRow.insertCell()
+//   let newFinished = newRow.insertCell()
+//   let newdelete = newRow.insertCell()
+//   const inputValue = document.getElementById('chore').value
+
+//   newCheckbox.innerHTML = `<input class="checkboxes" type = 'checkbox'>`
+
+//   let thisCheckbox = newCheckbox.children[0]
+
+//   newChore.innerText = inputValue
+//   newRegistered.innerHTML = getTime()
+
+//   newdelete.innerHTML = `<button class="deleteButton">delete</button>`
+//   let thisDeletebutton = newdelete.children[0]
+
+//   const id = sendData(inputValue, timedata)
+//   addEventListenerToCheckbox(thisCheckbox, id)
+//   addEventListenerToDeletebutton(thisDeletebutton, id)
+  
+//   showNumbers.innerHTML = `Number of list : ${toDoList.length}`
+// }
 
 
 

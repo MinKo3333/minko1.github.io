@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <input type='range' min='0' max='20' step='1' value='2' onchange='changeLabyrintSize(this.value)'>
+    <div id="app"></div>
+    <button onclick="generateRandom()">random</button>
+
+    <script src="Model.js"></script>
+    <script>
+        updateView()
+
+        function updateView() {
+            document.getElementById('app').innerHTML = /*HTML*/
+                `           
+                <table>${creatCell()}</table>`
+            toggleWallStyle()
+        }
+
+        function creatCell() {
+            let cells = []
+            let html = []
+
+            for (const eachRow of mazeModel.rows) {
+
+                for (const eachCell of eachRow) {
+                    let square = ''
+                    if (eachCell.isHigh == true && eachCell.isWide == true && eachCell.isOpen == undefined) {
+                        square = '<td class="room"></td>'
+                    }
+                    if (eachCell.isHigh == true && eachCell.isWide == false) {
+                        if (eachCell.isOpen) { square = '<td class="high small noWall clickable"></td>' }
+                        if (!eachCell.isOpen) { square = '<td class="high small wall clickable"></td>' }
+                    }
+                    if (eachCell.isHigh == false && eachCell.isWide == true) {
+                        if (eachCell.isOpen) { square = '<td class="low wide noWall clickable"></td>' }
+                        if (!eachCell.isOpen) { square = '<td class="low wide wall clickable"></td>' }
+                    }
+                    if (eachCell.isHigh == false && eachCell.isWide == false && eachCell.isOpen == false) {
+                        square = '<td class="small low wall"></td>'
+                    }
+                    cells.push(`${square}`)
+                }
+                html.push(`<tr>${cells.join('')}</tr>`)
+                cells = []
+            }
+
+            return html.join('')
+        }
+
+        function generateRandom() {
+            mazeModel.rows.forEach((row, rowIndex) => {
+
+                row.forEach((cell, cellIndex) => {
+                    if (rowIndex === 0 || rowIndex === mazeModel.rows.length - 1) {
+                        cell.isOpen = false
+                        return
+                    }//첫째줄 막줄 항상막음
+                    let chance = Math.random()
+                    if (cell.isOpen === undefined || (cell.isHigh === false && cell.isWide === false && cell.isOpen === false)) {
+                        return
+                    }
+                    //isOpen값 없는 = 방일경우 건들지않기
+                    if (cellIndex === 0 || cellIndex === row.length - 1) { return }
+                    //양 옆 벽 건들지않기
+                    if (chance <= 0.5) { cell.isOpen = true }
+                    else { cell.isOpen = false }
+                    //나머지는 확률로 열든가말든가
+                })
+            })
+
+            updateView()
+        }
+        function toggleWallStyle() {
+            let walls = document.querySelectorAll('.clickable')
+            Array.from(walls).forEach(wall => {
+                wall.addEventListener('click', function () {
+                    wall.classList.toggle('wall')
+                    wall.classList.toggle('noWall')
+                })
+            })
+        }
+
+        function changeLabyrintSize(labyrintSize) {
+            initLabyrint(labyrintSize)
+            generateRandom()
+        }
+
+     function initLabyrint(labyrintSize){
+        mazeModel.rows = []
+            for (let i = 0; i < ((2 * labyrintSize) + 1); i++) {
+                mazeModel.rows.push([])
+                for (let c = 0; c < ((2 * labyrintSize) + 1); c++) {
+                     
+                    switch (true) {
+                        case i === 0:
+                        case i === 2 * labyrintSize:
+                            if (c % 2 === 0) { mazeModel.rows[i][c] = { isHigh: false, isWide: false, isOpen: false } }
+                            else {
+                                mazeModel.rows[i][c]  = { isHigh: false, isWide: true, isOpen: false }
+                            }
+                            break// 첫줄 막줄 완성(break있으니까 다음줄에서 신경 x)
+                        case i % 2 === 1:
+                            if (c % 2 === 1) { mazeModel.rows[i][c]  = { isHigh: true, isWide: true } }
+                            else { mazeModel.rows[i][c]  = { isHigh: true, isWide: false, isOpen: false } }
+
+                            break
+                        //세로벽줄
+                        case i % 2 === 0:
+                            if (c % 2 === 1) { mazeModel.rows[i][c]  = { isHigh: false, isWide: true, isOpen: false } }
+                            else { mazeModel.rows[i][c]  = { isHigh: false, isWide: false, isOpen: false } }
+
+                            break
+                        //가로벽줄
+
+                    }
+                }
+            }
+     }
+    </script>
+</body>
+
+</html>

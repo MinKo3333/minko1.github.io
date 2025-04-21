@@ -8,6 +8,7 @@
 }
 
 .container{
+  position: relative;
   display:grid;
   grid-template-columns: repeat(30, 1fr);  
   grid-template-rows: repeat(30, 1fr);  
@@ -19,4 +20,17 @@
 
 .cell{
   border: gainsboro 1px solid;
+}
+.gameover{
+  display: block;
+  background-color: rgba(250, 235, 215, 0.479);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  padding: 2%;
+}
+.gameon{
+  display: hidden;
 }

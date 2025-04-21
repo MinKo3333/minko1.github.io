@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+  <!-- Lag et objekt array som heter handlekurv. Legg til 10 varer, de skal 
+   ha et navn på produktet, en pris og en mengde (hvor mange du skal kjøpe).
+Kalkuler totalprisen på varene i handlekurven. -->
+<script>
+  let totalpris = null
+  let handlekurv = [
+    {name: 'eple', price:10},{name: 'snake', price:10},{name: 'ananas', price:10},{name: 'brus', price:10},
+    {name: 'appelsin', price:10},{name: 'sinke', price:10},{name: 'kylling', price:10},{name: 'avocado', price:10},
+    {name: 'sjoko', price:10}, {name: 'melk', price:10}
+  ]
+  calculate()
+  mainview()
+ 
+  function mainview(){
+    let input = `<input id='item'><input id='pris'><button 
+                  onclick = "addItem(document.getElementById('item').value,
+                  document.getElementById('pris').value)">add</button>`
+    let table = '<table id ="thetable"> <tr>'
+    for(let i=0; i<handlekurv.length; i++){
+      table+= /*HTML*/`<tr>
+      <td>${handlekurv[i].name}</td>
+      <td>${handlekurv[i].price}</td></tr>`
+    }
+    table += `</table>`
+    table += `<p>${totalpris}</p>`
+    
+  document.getElementById('app').innerHTML = input + table 
+  }
+
+  function addItem(name,price){
+    handlekurv.push({name: name, price: price})
+    handlekurv[handlekurv.length].name.push(`${name}`)
+    handlekurv[handlekurv.length].price.push(`${price}`)
+    console.log(handlekurv)
+    let table = document.querySelector('#thetable')
+    let newRow = table.insertRow()
+    let newName = newRow.insertCell()
+    let newPrice = newRow.insertCell()
+
+    newName.innerHTML = name
+    newPrice.innerHTML = price
+    calculate()
+  }
+
+  function calculate(){
+    
+    for(let i=0; i<handlekurv.length; i++){
+      totalpris += handlekurv[i].price
+    }
+    console.log(totalpris)
+    return totalpris
+   }
+
+
+
+</script>
+
+</body>
+</html>

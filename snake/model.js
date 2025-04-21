@@ -2,10 +2,11 @@ const model = {
 
   app: {
     snake_location: ['x', 'y'],
-    tableStyleInfo: [
-      snakefood = ['x', 'y'],
-
-    ]
+    snakeTrail : [],
+    tableStyleInfo: {
+      snakefood : ['x', 'y'],
+      snakelength : [0]  
+    }
   },
 
 

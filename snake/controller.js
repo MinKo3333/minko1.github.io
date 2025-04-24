@@ -43,7 +43,8 @@ function newLocationToSnake(code) {
     model.app.snake_location[0] += 1
   }
   console.log('snake location after', model.app.snake_location)
-  model.app.snakeTrail.unshift(JSON.parse(JSON.stringify(model.app.snake_location)))
+  // model.app.snakeTrail.unshift(JSON.parse(JSON.stringify(model.app.snake_location)))
+  model.app.snakeTrail.unshift([...model.app.snake_location])
   if (model.app.snakeTrail.length > model.app.tableStyleInfo.snakelength + 10) {
     model.app.snakeTrail.pop()
   }
